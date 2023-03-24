@@ -1,10 +1,10 @@
 <div id="left-sidebar" class="sidebar">
     <div class="sidebar-scroll">
         <div class="user-account">
-            <img src="../assets/images/user.png" class="rounded-circle user-photo" alt="User Profile Picture">
+            <img src="{{ asset('backend/assets/images/user.png') }}" class="rounded-circle user-photo" alt="User Profile Picture">
             <div class="dropdown">
                 <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Pro. William</strong></a>
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ Auth::user()->full_name }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account">
                     <li><a href="professors-profile.html"><i class="icon-user"></i>My Profile</a></li>
                     <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
@@ -42,10 +42,10 @@
                 <nav class="sidebar-nav">
                     <ul class="main-menu metismenu">
                         <li class="active"><a href="index.html"><i class="icon-home"></i><span>Dashboard</span></a></li>
-                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-control-pause"></i><span>Departments</span> </a>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-control-pause"></i><span>Banner Management</span> </a>
                             <ul>
-                                <li><a href="departments.html">All Departments</a></li>
-                                <li><a href="add-departments.html">Add Departments</a></li>
+                                <li><a href="{{ route('banner.index') }}">All Banners</a></li>
+                                <li><a href="{{ route('banner.create') }}">Add Banner</a></li>
                             </ul>
                         </li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-graduation"></i><span>Courses</span> </a>
