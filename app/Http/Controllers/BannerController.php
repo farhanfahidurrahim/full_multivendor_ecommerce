@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Banner;
+use Illuminate\Support\Str;
+use DB;
 
 class BannerController extends Controller
 {
@@ -12,8 +15,22 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {   
+        $data=Banner::orderBy('id','DESC')->get();
+        return view('backend.banners.index',compact('data'));
+    }
+
+    public function bannerStatus(Request $request)
     {
-        return view('backend.banners.index');
+        //dd($request->all());
+        if ($request->mode=='true') {
+            DB::table('banners')->where('id',$request->id)->update(['status'=>'active']);
+        }
+        else{
+            DB::table('banners')->where('id',$request->id)->update(['status'=>'inactive']);
+        }
+
+        return response()->json(['msg'=>'Successfully Updated Status','status'=>true]);
     }
 
     /**
@@ -33,8 +50,27 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        return $request->all();
+    {   
+        //dd($request->all());
+        $request->validate([
+            'title'=>'string|required',
+            'photo'=>'required',
+            'description'=>'required',
+            'condition'=>'required',
+            'status'=>'required',
+        ]);
+
+        $data=$request->all();
+        $slug=Str::slug($request->input('title'));
+        $data['slug']=$slug;
+        $store=Banner::create($data);
+        if ($store) {
+            toastr()->success('Banner Created successfully!');
+            return redirect()->route('banner.index');
+        }
+
+        toastr()->error('An error has occurred please try again!');
+        return back();
     }
 
     /**
