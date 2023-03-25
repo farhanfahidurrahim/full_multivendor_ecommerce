@@ -92,7 +92,8 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data=Banner::find($id);
+        return view('backend.banners.edit',compact('data'));
     }
 
     /**
@@ -104,7 +105,27 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $finddata=Banner::find($id);
+        if ($finddata) {
+            $request->validate([
+            'title'=>'string|required',
+            'photo'=>'required',
+            'description'=>'required',
+            'condition'=>'required',
+        ]);
+
+            $data=$request->all();
+            $slug=Str::slug($request->input('title'));
+            $data['slug']=$slug;
+            $update=$finddata->fill($data)->save();
+            if ($update) {
+                toastr()->success('Banner Updated successfully!');
+                return redirect()->route('banner.index');
+            }
+
+            toastr()->error('An error has occurred please try again!');
+            return back();
+        }
     }
 
     /**
@@ -115,6 +136,14 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data=Banner::find($id);
+        $data->delete();
+        if ($data) {
+                toastr()->success('Banner Deleted successfully!');
+                return redirect()->route('banner.index');
+            }
+
+            toastr()->error('An error has occurred please try again!');
+            return back();
     }
 }
