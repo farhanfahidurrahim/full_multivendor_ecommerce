@@ -48,11 +48,10 @@
                                 <li><a href="{{ route('banner.create') }}">Add Banner</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-graduation"></i><span>Courses</span> </a>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-graduation"></i><span>Category</span> </a>
                             <ul>
-                                <li><a href="courses.html">All Courses</a></li>
-                                <li><a href="add-courses.html">Add Courses</a></li>
-                                <li><a href="courses-info.html">Courses Info</a></li>
+                                <li><a href="{{ route('category.index') }}">All Category</a></li>
+                                <li><a href="{{ route('category.create') }}">Add Category</a></li>
                             </ul>
                         </li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-notebook"></i><span>Library</span> </a>

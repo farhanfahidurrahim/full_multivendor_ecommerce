@@ -139,10 +139,9 @@ class BannerController extends Controller
         $data=Banner::find($id);
         $data->delete();
         if ($data) {
-                toastr()->success('Banner Deleted successfully!');
-                return redirect()->route('banner.index');
-            }
-
+            toastr()->success('Banner Deleted successfully!');
+            return redirect()->route('banner.index');
+        }
             toastr()->error('An error has occurred please try again!');
             return back();
     }
