@@ -48,22 +48,22 @@
                                 <li><a href="{{ route('banner.create') }}">Add Banner</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-graduation"></i><span>Category Management</span> </a>
-                            <ul>
-                                <li><a href="{{ route('category.index') }}">All Category</a></li>
-                                <li><a href="{{ route('category.create') }}">Add Category</a></li>
-                            </ul>
-                        </li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-notebook"></i><span>Brand Management</span> </a>
                             <ul>
                                 <li><a href="{{ route('brand.index') }}">All Brand</a></li>
                                 <li><a href="{{ route('brand.create') }}">Add Brand</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-share fa-rotate-90 d-inline-block"></i><span>Class</span> </a>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-graduation"></i><span>Category Management</span> </a>
                             <ul>
-                                <li><a href="add-classroom.html">Add Class</a></li>
-                                <li><a href="classroom.html">List Class</a></li>
+                                <li><a href="{{ route('category.index') }}">All Category</a></li>
+                                <li><a href="{{ route('category.create') }}">Add Category</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-share fa-rotate-90 d-inline-block"></i><span>Product Management</span> </a>
+                            <ul>
+                                <li><a href="{{ route('product.index') }}">All Product</a></li>
+                                <li><a href="{{ route('product.create') }}">Add Product</a></li>
                             </ul>
                         </li>
                         <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-wallet"></i><span>Payments</span> </a>

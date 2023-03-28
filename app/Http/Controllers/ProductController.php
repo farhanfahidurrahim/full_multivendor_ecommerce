@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Brand;
-use Illuminate\Support\Str;
+use App\Models\Product;
 use DB;
 
-class BrandController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +15,18 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $data=Brand::orderBy('id','DESC')->get();
-        return view('backend.brand.index',compact('data'));
+        $data=Product::orderBy('id','DESC')->get();
+        return view('backend.product.index',compact('data'));
     }
 
-    public function brandStatus(Request $request)
+    public function productStatus(Request $request)
     {
         //dd($request->all());
         if ($request->mode=='true') {
-            DB::table('brands')->where('id',$request->id)->update(['status'=>'active']);
+            DB::table('products')->where('id',$request->id)->update(['status'=>'active']);
         }
         else{
-            DB::table('brands')->where('id',$request->id)->update(['status'=>'inactive']);
+            DB::table('products')->where('id',$request->id)->update(['status'=>'inactive']);
         }
 
         return response()->json(['msg'=>'Successfully Updated Status','status'=>true]);
@@ -40,7 +39,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('backend.brand.create');
+        //
     }
 
     /**
@@ -51,23 +50,7 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title'=>'nullable|string',
-            'photo'=>'required',
-            'status'=>'nullable|in:active,inactive',
-        ]);
-        $data=$request->all();
-        $slug=Str::slug($request->input('title'));
-        $data['slug']=$slug;
-        $store=Brand::create($data);
-        if ($store) {
-            toastr()->success('Brand Created Successfully');
-            return redirect()->route('brand.index');
-        }
-        else{
-            toastr()->error('An error has occurred please try again!');
-            return redirect()->route('brand.index');
-        }
+        //
     }
 
     /**
@@ -112,14 +95,6 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $data=Brand::find($id);
-        $data->delete();
-        if ($data) {
-            toastr()->success('Brand Deleted successfully!');
-            return redirect()->route('brand.index');
-        }
-        
-        toastr()->error('An error has occurred please try again!');
-        return back();
+        //
     }
 }

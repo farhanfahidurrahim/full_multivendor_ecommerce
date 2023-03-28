@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
 //Brand Section
     Route::resource('/brand',BrandController::class);
     Route::post('/brand-status',[BrandController::class,'brandStatus'])->name('brand.status');
+//Product Section
+    Route::resource('/product',ProductController::class);
+    Route::post('/product-status',[ProductController::class,'productStatus'])->name('product.status');
 });
 
 
