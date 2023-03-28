@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Banner;
+use App\Models\Brand;
 use Illuminate\Support\Str;
 use DB;
 
-class BannerController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +15,19 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $data=Banner::orderBy('id','DESC')->get();
-        return view('backend.banners.index',compact('data'));
+    {
+        $data=Brand::orderBy('id','DESC')->get();
+        return view('backend.Brand.index',compact('data'));
     }
 
-    public function bannerStatus(Request $request)
+    public function brandStatus(Request $request)
     {
         //dd($request->all());
         if ($request->mode=='true') {
-            DB::table('banners')->where('id',$request->id)->update(['status'=>'active']);
+            DB::table('brands')->where('id',$request->id)->update(['status'=>'active']);
         }
         else{
-            DB::table('banners')->where('id',$request->id)->update(['status'=>'inactive']);
+            DB::table('brands')->where('id',$request->id)->update(['status'=>'inactive']);
         }
 
         return response()->json(['msg'=>'Successfully Updated Status','status'=>true]);
@@ -40,7 +40,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('backend.banners.create');
+        return view('backend.brand.create');
     }
 
     /**
@@ -50,27 +50,24 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        //dd($request->all());
-        $request->validate([
-            'title'=>'string|required',
+    {
+        $this->validate($request,[
+            'title'=>'nullable|string',
             'photo'=>'required',
-            'description'=>'required',
-            'condition'=>'required',
-            'status'=>'required',
+            'status'=>'nullable|in:active,inactive',
         ]);
-
         $data=$request->all();
         $slug=Str::slug($request->input('title'));
         $data['slug']=$slug;
-        $store=Banner::create($data);
+        $store=Brand::create($data);
         if ($store) {
-            toastr()->success('Banner Created successfully!');
-            return redirect()->route('banner.index');
+            toastr()->success('Brand Created Successfully');
+            return redirect()->route('brand.index');
         }
-
-        toastr()->error('An error has occurred please try again!');
-        return back();
+        else{
+            toastr()->error('An error has occurred please try again!');
+            return redirect()->route('brand.index');
+        }
     }
 
     /**
@@ -92,8 +89,7 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $data=Banner::find($id);
-        return view('backend.banners.edit',compact('data'));
+        //
     }
 
     /**
@@ -105,27 +101,7 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $finddata=Banner::find($id);
-        if ($finddata) {
-            $request->validate([
-            'title'=>'string|required',
-            'photo'=>'required',
-            'description'=>'required',
-            'condition'=>'required',
-        ]);
-
-            $data=$request->all();
-            $slug=Str::slug($request->input('title'));
-            $data['slug']=$slug;
-            $update=$finddata->fill($data)->save();
-            if ($update) {
-                toastr()->success('Banner Updated successfully!');
-                return redirect()->route('banner.index');
-            }
-
-            toastr()->error('An error has occurred please try again!');
-            return back();
-        }
+        //
     }
 
     /**
@@ -136,11 +112,11 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        $data=Banner::find($id);
+        $data=Brand::find($id);
         $data->delete();
         if ($data) {
-            toastr()->success('Banner Deleted successfully!');
-            return redirect()->route('banner.index');
+            toastr()->success('Brand Deleted successfully!');
+            return redirect()->route('brand.index');
         }
         
         toastr()->error('An error has occurred please try again!');

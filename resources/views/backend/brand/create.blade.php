@@ -6,17 +6,17 @@
             <div class="block-header">
                 <div class="row">
                     <div class="col-lg-6 col-md-8 col-sm-12">
-                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Add New Banner</h2>
+                        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Add New Brand</h2>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href=""><i class="icon-home"></i></a></li>                            
-                            <li class="breadcrumb-item">Banner</li>
-                            <li class="breadcrumb-item active">Add Banner</li>
+                            <li class="breadcrumb-item">Brand</li>
+                            <li class="breadcrumb-item active">Add Brand</li>
                         </ul>
                     </div>
                     <div class="col-lg-6 col-md-4 col-sm-12 text-right">
                         <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm">
                             <ul class="breadcrumb">
-                                <a href="{{ route('banner.index') }}" class="btn btn-info"><i class="icon-home"></i> All Banner List</a>
+                                <a href="{{ route('banner.index') }}" class="btn btn-info"><i class="icon-home"></i> All Brand List</a>
                             </ul>
                         </div>
                     </div>       
@@ -38,7 +38,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="body">
-                        	<form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
+                        	<form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row clearfix">
 
@@ -58,22 +58,6 @@
 										<input id="thumbnail" class="form-control" type="text" name="photo">
 									</div>
 									<div id="holder" style="margin-top:15px;max-height:100px;"></div>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12">
-                                	<label for="">Description</label> 
-                                    <div class="form-group">
-                                        <textarea id="description" class="form-control" name="description" placeholder="Write some text">{{ old('description') }}</textarea>
-                                    </div>
-                                </div>
-                                
-                            	<div class="col-lg-4 col-md-6 col-sm-12">
-                                	<label for="">Condition</label>                                
-                                    <select class="form-control show-tick" name="condition">
-                                        <option selected disabled value="">-- Choose --</option>
-                                        <option value="banner" {{old('condition')=='banner' ? 'selected' : ''}}>Banner</option>
-                                        <option value="promo" {{old('condition')=='promo' ? 'selected' : ''}}>Promotional</option>
-                                    </select>
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 col-sm-12">

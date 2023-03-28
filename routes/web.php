@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,13 +26,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Admin Dashboard
 Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
     Route::get('/',[\App\Http\Controllers\AdminController::class,'admin'])->name('admin');
-
 //Banner Section
     Route::resource('/banner',BannerController::class);
     Route::post('/banner-status',[BannerController::class,'bannerStatus'])->name('banner.status');
 //Category Section
     Route::resource('/category',CategoryController::class);
     Route::post('/category-status',[CategoryController::class,'categoryStatus'])->name('category.status');
+//Brand Section
+    Route::resource('/brand',BrandController::class);
+    Route::post('/brand-status',[BrandController::class,'brandStatus'])->name('brand.status');
 });
 
 
