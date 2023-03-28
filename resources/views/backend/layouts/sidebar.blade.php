@@ -66,11 +66,10 @@
                                 <li><a href="{{ route('product.create') }}">Add Product</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-wallet"></i><span>Payments</span> </a>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-wallet"></i><span>User Managemnet</span> </a>
                             <ul>
-                                <li><a href="payments.html">Payments</a></li>
-                                <li><a href="payments-add.html">Add Payment</a></li>
-                                <li><a href="payments-invoice.html">Invoice</a></li>
+                                <li><a href="{{ route('user.index') }}">All User</a></li>
+                                <li><a href="{{ route('user.create') }}">Add User</a></li>
                             </ul>
                         </li>
                         <li><a href="noticeboard.html"><i class="icon-info"></i>Noticeboard</a></li>

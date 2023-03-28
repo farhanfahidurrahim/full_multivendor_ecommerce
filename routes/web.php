@@ -5,6 +5,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +40,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
 //Product Section
     Route::resource('/product',ProductController::class);
     Route::post('/product-status',[ProductController::class,'productStatus'])->name('product.status');
+//User Section
+    Route::resource('/user',UserController::class);
+    Route::post('/user-status',[UserController::class,'userStatus'])->name('user.status');
 });
 
 
