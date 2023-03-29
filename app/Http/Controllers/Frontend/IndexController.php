@@ -7,14 +7,29 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
+use Auth;
 
 class IndexController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function userLoginRegister()
+    {
+        return view('frontend.auth-user.login-register');
+    }
+
+    public function userLogin(Request $request)
+    {
+        $request->validate([
+            'email'=>'required|email|exists:users,email',
+            'password'=>'required|min:6'
+        ]);
+        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=>'active'])) {
+            return redirect()->route('home');
+        }
+        else{
+            return back()->with('error','Invalid Email or Password!');
+        }
+    }
+
     public function index()
     {   
         $banner=Banner::where(['status'=>'active','condition'=>'banner'])->orderBy('id','DESC')->limit('3')->get();
@@ -31,7 +46,7 @@ class IndexController extends Controller
     public function productDetails($slug)
     {   
         //dd($slug);
-        $prdct_dtls=Product::where('slug',$slug)->first();
+        $prdct_dtls=Product::with('relatedProductMR')->where('slug',$slug)->first();
         if ($prdct_dtls) {
             return view('frontend.pages.product.product-details',compact('prdct_dtls'));
         }

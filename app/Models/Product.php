@@ -30,4 +30,9 @@ class Product extends Model
         'sub_cat_id',
         'vendor_id',
     ];
+
+    public function relatedProductMR()
+    {
+        return $this->hasMany(Product::class,'cat_id','cat_id')->where('status','active')->limit(10);
+    }
 }

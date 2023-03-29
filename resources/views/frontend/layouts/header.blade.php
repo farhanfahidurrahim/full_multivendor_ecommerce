@@ -8,7 +8,7 @@
                             <span class="popover--text" data-toggle="popover"
                                 data-content="Welcome to Bigshop ecommerce template."><i
                                     class="icofont-info-square"></i></span>
-                            <span class="text">Welcome to 'FRF BigShop' Online E-Commerce.</span>
+                            <span class="text">Welcome to : FRF BigShop Online E-Commerce.</span>
                         </div>
                     </div>
                     <div class="col-6">
@@ -70,7 +70,7 @@
                             <!-- Nav -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="#">Home</a>
+                                    <li><a href="{{ route('home') }}">Home</a>
                                         <ul class="dropdown">
                                             <li><a href="index-1.html">Home - 1</a></li>
                                             <li><a href="index-2.html">Home - 2</a></li>
@@ -277,11 +277,15 @@
                                     <img src="{{ asset('frontend/img/bg-img/user.jpg') }}" alt="">
                                 </div>
                                 <ul class="user-meta-dropdown">
+                                    @auth
                                     <li class="user-title"><span>Hello,</span> Lim Sarah</li>
                                     <li><a href="my-account.html">My Account</a></li>
                                     <li><a href="order-list.html">Orders List</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="login.html"><i class="icofont-logout"></i> Logout</a></li>
+                                    @else
+                                    <li><a href="{{ route('user.auth') }}">Login & Register</a></li>
+                                    @endauth
                                 </ul>
                             </div>
                         </div>

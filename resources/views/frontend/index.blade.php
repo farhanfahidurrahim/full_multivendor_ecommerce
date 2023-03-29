@@ -198,7 +198,7 @@
 
                                 <p class="brand_name">{{ App\Models\Brand::where('id',$item->brand_id)->value('title') }}</p>
                                 <a href="{{ route('product.details',$item->slug) }}">{{ ucfirst($item->title) }}</a>
-                                <h6 class="product-price"> ${{ $item->offer_price,2 }} <small><del class="text-danger">${{ $item->price,2 }}</del></small></h6>
+                                <h6 class="product-price"> ${{ number_format($item->offer_price,2) }} <small><del class="text-danger">${{ number_format($item->price,2) }}</del></small></h6>
                             </div>
                         </div>
                         @endforeach

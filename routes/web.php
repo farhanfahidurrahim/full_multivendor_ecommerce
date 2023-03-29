@@ -21,6 +21,10 @@ use App\Http\Controllers\Frontend\IndexController;
 // Frontend
 Route::get('/',[IndexController::class,'index'])->name('home');
 
+//Authentication
+Route::get('user/login-register-form',[IndexController::class,'userLoginRegister'])->name('user.auth');
+Route::post('user/login',[IndexController::class,'userLogin'])->name('user.login');
+
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');
 Route::get('product-details/{slug}',[IndexController::class,'productDetails'])->name('product.details');
