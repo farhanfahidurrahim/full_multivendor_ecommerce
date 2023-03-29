@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Auth;
+use Session;
+use Hash;
 
 class IndexController extends Controller
 {
@@ -23,11 +26,47 @@ class IndexController extends Controller
             'password'=>'required|min:6'
         ]);
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=>'active'])) {
-            return redirect()->route('home');
+            Session::put('user',$request->email);
+
+            if (Session::get('url.intended')) {
+                return Redirect::to(Session::get('url.intended'));
+            }
+            else{
+                return redirect()->route('home')->with('success','Successfully Login!');
+            }
         }
         else{
             return back()->with('error','Invalid Email or Password!');
         }
+    }
+
+    public function registerSubmit(Request $request)
+    {   
+        $request->validate([
+            'full_name'=>'required|string',
+            'username'=>'required|string',
+            'email'=>'email|required|unique:users,email',
+            'password'=>'required|min:6|confirmed',
+        ]);
+
+        $data=$request->all();
+        $data['password']=Hash::make($request->password);
+        $store=User::create($data);
+        Session::put('user',$request->email);
+        Auth::login($check);
+        if ($store) {
+            return redirect()->route('home')->with('success','Registration Successfully!');
+        }
+        else{
+            return back()->with('error','Please Try Again!');
+        }
+    }
+
+    public function logoutSubmit()
+    {
+        Session::forget('user');
+        Auth::logout();
+        return redirect()->route('user.auth')->with('success','Successfully Logout!');
     }
 
     public function index()

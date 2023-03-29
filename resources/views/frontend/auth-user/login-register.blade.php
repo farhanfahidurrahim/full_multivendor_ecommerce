@@ -28,19 +28,15 @@
                         <form action="{{ route('user.login') }}" method="post">
                         	@csrf
                             <div class="form-group">
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="username" placeholder="Email or Username">
+                                <input type="email" class="form-control" name="email" id="username" placeholder="Email">
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="form-check">
@@ -62,18 +58,31 @@
                     <div class="login_form mb-50">
                         <h5 class="mb-3">Register</h5>
 
-                        <form action="my-account.html" method="post">
+                        <form action="{{ route('user.register') }}" method="post">
+                        	{{csrf_field()}}
                             <div class="form-group">
                                 <input type="text" class="form-control" name="full_name" id="username" placeholder="Full Name">
+                                @error('full_name')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+                                @error('username')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" id="username" placeholder="Email">
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                @error('password')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password_confirmation" id="password" placeholder="Repeat Password">
