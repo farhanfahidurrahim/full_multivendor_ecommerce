@@ -23,6 +23,7 @@ Route::get('/',[IndexController::class,'index'])->name('home');
 
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');
+Route::get('product-details/{slug}',[IndexController::class,'productDetails'])->name('product.details');
 
 //----------------------------------------------------------------
 

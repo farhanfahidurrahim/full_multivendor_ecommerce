@@ -80,8 +80,8 @@
                 <div class="col-12">
                     <h5>Shop Grid</h5>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active">Shop Grid</li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item active">{{ $pdcat->title }}</li>
                     </ol>
                 </div>
             </div>
@@ -120,15 +120,15 @@
                                     <div class="single-product-area mb-30">
                                         <div class="product_image">
                                             @php
-                                            $photo=explode(',',$item->photo);
+                                                $photo=explode(',',$item->photo);
                                             @endphp
                                             <!-- Product Image -->
-                                            <img class="normal_img" src="{{ $photo[0] }}" alt="">
-                                            <img class="hover_img" src="img/product-img/new-1.png" alt="">
+                                            <img class="normal_img" src="{{ $photo[0] }}" alt="product-img">
+                                            {{-- <img class="hover_img" src="img/product-img/new-1.png" alt=""> --}}
 
                                             <!-- Product Badge -->
                                             <div class="product_badge">
-                                                <span>New</span>
+                                                <span>{{ $item->conditions }}</span>
                                             </div>
 
                                             <!-- Wishlist -->
@@ -154,9 +154,9 @@
                                                 <a href="#" data-toggle="modal" data-target="#quickview"><i class="icofont-eye-alt"></i> Quick View</a>
                                             </div>
 
-                                            <p class="brand_name">Top</p>
-                                            <a href="#">Boutique Silk Dress</a>
-                                            <h6 class="product-price">$48.99</h6>
+                                            <p class="brand_name">{{ App\Models\Brand::where('id',$item->brand_id)->value('title') }}</p>
+                                            <a href="{{ route('product.details',$item->slug) }}">{{ ucfirst($item->title) }}</a>
+                                            <h6 class="product-price"> ${{ $item->offer_price,2 }} <small><del class="text-danger">${{ $item->price,2 }}</del></small></h6>
                                         </div>
                                     </div>
                                 </div>

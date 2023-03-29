@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'slug'=>$this->faker->unique()->slug,
             'summary'=>$this->faker->text,
             'description'=>$this->faker->text,
-            'photo'=>$this->faker->imageUrl('400','200'),
+            'photo'=>$this->faker->imageUrl('253','380'),
             'stock'=>$this->faker->numberBetween(2,10),
             'price'=>$this->faker->numberBetween(100,1000),
             'offer_price'=>$this->faker->numberBetween(100,1000),
