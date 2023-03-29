@@ -37,6 +37,7 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Title</th>
+                                            <th>Slug</th>
                                             <th>Photo</th>
                                             <th>Is Parent</th>
                                             <th>Parents</th>
@@ -49,6 +50,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->title }}</td>
+                                            <td>{{ $row->slug }}</td>
                                             <td>
                                                 <img src="{{ $row->photo }}" style="max-height: 50px; max-width: 75px;" alt="banner img">
                                             </td>
