@@ -27,6 +27,8 @@ Route::post('user/login',[IndexController::class,'userLogin'])->name('user.login
 Route::post('user/register',[IndexController::class,'registerSubmit'])->name('user.register');
 Route::get('user/logout',[IndexController::class,'logoutSubmit'])->name('user.logout');
 
+Route::get('user/dashboard',[IndexController::class,'userDashboard'])->name('user.myaccount');
+
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');
 Route::get('product-details/{slug}',[IndexController::class,'productDetails'])->name('product.details');

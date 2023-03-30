@@ -5,7 +5,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title> FRF | E-commerce</title>
+    <title> FRF | E-Commerce</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('frontend/img/core-img/favicon.ico') }}">

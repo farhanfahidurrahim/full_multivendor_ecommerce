@@ -10,7 +10,7 @@
     // :: Preloader Code
 
     bigshopWindow.on('load', function () {
-        $('#preloader').fadeOut('1000', function () {
+        $('#preloader').fadeOut('500', function () {
             $(this).remove();
         });
     });

@@ -14,6 +14,7 @@ use Hash;
 
 class IndexController extends Controller
 {
+    // User Auth : Login Register Logout
     public function userLoginRegister()
     {
         return view('frontend.auth-user.login-register');
@@ -41,7 +42,7 @@ class IndexController extends Controller
     }
 
     public function registerSubmit(Request $request)
-    {   
+    {
         $request->validate([
             'full_name'=>'required|string',
             'username'=>'required|string',
@@ -52,8 +53,8 @@ class IndexController extends Controller
         $data=$request->all();
         $data['password']=Hash::make($request->password);
         $store=User::create($data);
-        Session::put('user',$request->email);
-        Auth::login($check);
+        Session::put('user',$data['email']);
+        Auth::login($store);
         if ($store) {
             return redirect()->route('home')->with('success','Registration Successfully!');
         }
@@ -69,21 +70,22 @@ class IndexController extends Controller
         return redirect()->route('user.auth')->with('success','Successfully Logout!');
     }
 
+    // Frontend Part : Home Page Category Products Brand etc
     public function index()
-    {   
+    {
         $banner=Banner::where(['status'=>'active','condition'=>'banner'])->orderBy('id','DESC')->limit('3')->get();
         $categories=Category::where(['status'=>'active','is_parent'=>1])->orderBy('id','DESC')->limit('3')->get();
         return view('frontend.index',compact('banner','categories'));
     }
 
     public function productCategory($slug)
-    {   
+    {
         $pdcat=Category::with('productsMR')->where('slug',$slug)->first();
         return view('frontend.pages.product-category',compact('pdcat'));
     }
 
     public function productDetails($slug)
-    {   
+    {
         //dd($slug);
         $prdct_dtls=Product::with('relatedProductMR')->where('slug',$slug)->first();
         if ($prdct_dtls) {
@@ -92,5 +94,12 @@ class IndexController extends Controller
         else{
             return 'Product Details Not Found!';
         }
+    }
+
+    // User Account : Profile Edit Update Order
+    public function userDashboard()
+    {
+        $usr=Auth::user();
+        return view('frontend.user.dashboard',compact('usr'));
     }
 }
