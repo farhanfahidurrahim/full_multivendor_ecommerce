@@ -96,7 +96,7 @@ class IndexController extends Controller
         }
     }
 
-    // User Account : Profile Edit Update Order
+    // User Account : Profile Edit Update Order Billing Shipping
     public function userDashboard()
     {
         $usr=Auth::user();
@@ -114,9 +114,62 @@ class IndexController extends Controller
         return view('frontend.user.address',compact('usr'));
     }
 
+    public function userBillingAddress(Request $request,$id)
+    {
+        $update=User::where('id',$id)->update(['b_address'=>$request->b_address,'b_city'=>$request->b_city,'b_postcode'=>$request->b_postcode,'b_state'=>$request->b_state,'b_country'=>$request->b_country]);
+        if ($update) {
+            return back()->with('success',"Billing Address Successfully Updated!");
+        }
+        else{
+            return back()->with('error',"Something went wrong!");
+        }
+    }
+
+    public function userShippingAddress(Request $request,$id)
+    {
+        $update=User::where('id',$id)->update(['s_address'=>$request->s_address,'s_city'=>$request->s_city,'s_postcode'=>$request->s_postcode,'s_state'=>$request->s_state,'s_country'=>$request->s_country]);
+        if ($update) {
+            return back()->with('success',"Shipping Address Successfully Updated!");
+        }
+        else{
+            return back()->with('error',"Something went wrong!");
+        }
+    }
+
     public function userAccountDetails()
     {
         $usr=Auth::user();
         return view('frontend.user.account-details',compact('usr'));
+    }
+
+    public function userAccountUpdate(Request $request,$id)
+    {
+        $request->validate([
+            'full_name'=>'required',
+            'username'=>'required|unique:users',
+            'phone'=>'required|min:11',
+            'old_password'=>'nullable|min:6',
+            'new_password'=>'nullable|min:6',
+        ]);
+        $current_password=Auth::user()->password;
+
+        if ($request->old_password==null && $request->new_password==null) {
+            User::where('id',$id)->update(['full_name'=>$request->full_name,'username'=>$request->username,'phone'=>$request->phone]);
+            return back()->with('success','Account Successfully Updated!');
+        }
+        else{
+            if (Hash::check($request->old_password,$current_password)) {
+                if (!Hash::check($request->new_password,$current_password)) {
+                    User::where('id',$id)->update(['full_name'=>$request->full_name,'username'=>$request->username,'phone'=>$request->phone,'password'=>Hash::make($request->new_password)]);
+                    return back()->with('success','Account Successfully Updated with Password!');
+                }
+                else{
+                    return back()->with('error','New Password Cant be same with Old password!');
+                }
+            }
+            else{
+                return back()->with('error','Current Password does not matched!');
+            }
+        }
     }
 }

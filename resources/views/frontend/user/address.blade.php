@@ -33,57 +33,57 @@
                             <div class="col-12 col-lg-6 mb-5 mb-lg-0">
                                 <h6 class="mb-3">Billing Address</h6>
                                 <address>
-                                    MD NAZRUL ISLAM <br>
-                                    Madhabdi, Narsingdi <br>
-                                    Madhabdi <br>
-                                    Narsingdi <br>
-                                    1600
+                                    {{ $usr->b_address }} <br>
+                                    {{ $usr->b_city }} <br>
+                                    {{ $usr->b_state }} <br>
+                                    {{ $usr->b_postcode }} <br>
+                                    {{ $usr->b_country }}
                                 </address>
 
                                 <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
-                                    data-target="#editAddress">Edit Address</a>
+                                    data-target="#editAddress">Edit Billing Address</a>
                                 <!-- Modal -->
                                 <div class="modal fade" id="editAddress" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Address</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Billing Address</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
-                                                <form action="" method="POST">
+                                            <form action="{{ route('user.billingaddress.store',$usr->id) }}" method="POST">
                                                 @csrf
+                                                <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="">Address</label>
-                                                        <textarea name="address" class="form-control" id=""></textarea>
+                                                        <label for="">Billing Address</label>
+                                                        <textarea name="b_address" class="form-control" id="">{{ $usr->b_address }}</textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">Postcode</label>
-                                                        <input name="" class="form-control" id="">
+                                                        <label for="">Billing City</label>
+                                                        <input name="b_city" value="{{ $usr->b_city }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">City</label>
-                                                        <input name="" class="form-control" id="">
+                                                        <label for="">Billing Postcode</label>
+                                                        <input name="b_postcode" value="{{ $usr->b_postcode }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">District</label>
-                                                        <input name="" class="form-control" id="">
+                                                        <label for="">Billing District</label>
+                                                        <input name="b_state" value="{{ $usr->b_state }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">Country</label>
-                                                        <input name="" class="form-control" id="">
+                                                        <label for="">Billing Country</label>
+                                                        <input name="b_country" value="{{ $usr->b_country }}" class="form-control" id="">
                                                     </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -91,9 +91,59 @@
                             <div class="col-12 col-lg-6">
                                 <h6 class="mb-3">Shipping Address</h6>
                                 <address>
-                                    You have not set up this type of address yet.
+                                    {{ $usr->s_address }} <br>
+                                    {{ $usr->s_city }} <br>
+                                    {{ $usr->s_state }} <br>
+                                    {{ $usr->s_postcode }} <br>
+                                    {{ $usr->s_country }}
                                 </address>
-                                <a href="#" class="btn btn-primary btn-sm">Edit Address</a>
+                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#editShippingAddress">Edit Shipping Address</a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="editShippingAddress" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Shipping Address</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{ route('user.shippingaddress.store',$usr->id) }}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="">Shipping Address</label>
+                                                        <textarea name="s_address" class="form-control" id="">{{ $usr->s_address }}</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping City</label>
+                                                        <input name="s_city" value="{{ $usr->s_city }}" class="form-control" id="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping Postcode</label>
+                                                        <input name="s_postcode" value="{{ $usr->s_postcode }}" class="form-control" id="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping District</label>
+                                                        <input name="s_state" value="{{ $usr->s_state }}" class="form-control" id="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Shipping Country</label>
+                                                        <input name="s_country" value="{{ $usr->s_country }}" class="form-control" id="">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,4 +152,17 @@
         </div>
     </section>
     <!-- My Account Area -->
+    <style>
+        .footer_area{
+            z-index: -1;
+        }
+    </style>
+@endsection
+
+@section('styles')
+    <style>
+        .footer_area{
+            z-index: -1;
+        }
+    </style>
 @endsection

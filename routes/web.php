@@ -31,7 +31,10 @@ Route::get('user/logout',[IndexController::class,'logoutSubmit'])->name('user.lo
 Route::get('user/dashboard',[IndexController::class,'userDashboard'])->name('user.myaccount');
 Route::get('user/order',[IndexController::class,'userOrder'])->name('user.order');
 Route::get('user/address',[IndexController::class,'userAddress'])->name('user.address');
+Route::post('user/billing-address/{id}',[IndexController::class,'userBillingAddress'])->name('user.billingaddress.store');
+Route::post('user/shipping-address/{id}',[IndexController::class,'userShippingAddress'])->name('user.shippingaddress.store');
 Route::get('user/account-details',[IndexController::class,'userAccountDetails'])->name('user.account.details');
+Route::post('user/account-update/{id}',[IndexController::class,'userAccountUpdate'])->name('user.account.update');
 
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');
