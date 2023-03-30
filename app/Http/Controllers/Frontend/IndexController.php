@@ -102,4 +102,21 @@ class IndexController extends Controller
         $usr=Auth::user();
         return view('frontend.user.dashboard',compact('usr'));
     }
+
+    public function userOrder()
+    {
+        return view('frontend.user.order');
+    }
+
+    public function userAddress()
+    {
+        $usr=Auth::user();
+        return view('frontend.user.address',compact('usr'));
+    }
+
+    public function userAccountDetails()
+    {
+        $usr=Auth::user();
+        return view('frontend.user.account-details',compact('usr'));
+    }
 }

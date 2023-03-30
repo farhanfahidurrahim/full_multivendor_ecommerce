@@ -21,13 +21,17 @@ use App\Http\Controllers\Frontend\IndexController;
 // Frontend
 Route::get('/',[IndexController::class,'index'])->name('home');
 
-//Authentication
+//User Authentication
 Route::get('user/login-register-form',[IndexController::class,'userLoginRegister'])->name('user.auth');
 Route::post('user/login',[IndexController::class,'userLogin'])->name('user.login');
 Route::post('user/register',[IndexController::class,'registerSubmit'])->name('user.register');
 Route::get('user/logout',[IndexController::class,'logoutSubmit'])->name('user.logout');
 
+//User Profile
 Route::get('user/dashboard',[IndexController::class,'userDashboard'])->name('user.myaccount');
+Route::get('user/order',[IndexController::class,'userOrder'])->name('user.order');
+Route::get('user/address',[IndexController::class,'userAddress'])->name('user.address');
+Route::get('user/account-details',[IndexController::class,'userAccountDetails'])->name('user.account.details');
 
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');

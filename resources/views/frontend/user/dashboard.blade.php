@@ -23,14 +23,7 @@
         <div class="row">
             <div class="col-12 col-lg-3">
                 <div class="my-account-navigation mb-50">
-                    <ul>
-                        <li class="active"><a href="{{ route('user.myaccount') }}">Dashboard</a></li>
-                        <li><a href="order-list.html">Orders</a></li>
-                        <li><a href="downloads.html">Downloads</a></li>
-                        <li><a href="addresses.html">Addresses</a></li>
-                        <li><a href="account-details.html">Account Details</a></li>
-                        <li><a href="login.html">Logout</a></li>
-                    </ul>
+                    @include('frontend.user.sideder')
                 </div>
             </div>
             <div class="col-12 col-lg-9">
