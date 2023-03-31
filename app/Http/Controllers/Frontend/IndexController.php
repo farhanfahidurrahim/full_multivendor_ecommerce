@@ -8,9 +8,10 @@ use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
-use Auth;
-use Session;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {

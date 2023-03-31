@@ -7,6 +7,9 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\CartController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +21,7 @@ use App\Http\Controllers\Frontend\IndexController;
 |
 */
 
-// Frontend
+// <===========Frontend Part==========>
 Route::get('/',[IndexController::class,'index'])->name('home');
 
 //User Authentication
@@ -39,6 +42,10 @@ Route::post('user/account-update/{id}',[IndexController::class,'userAccountUpdat
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');
 Route::get('product-details/{slug}',[IndexController::class,'productDetails'])->name('product.details');
+
+// Cart
+Route::post('cart-store',[CartController::class,'cartStore'])->name('cart.store');
+
 
 //----------------------------------------------------------------
 

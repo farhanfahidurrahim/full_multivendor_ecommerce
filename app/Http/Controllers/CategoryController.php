@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -14,13 +14,13 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Category::orderBy('id', 'DESC')->get();
         return view('backend.category.index',compact('data'));
     }
 
     public function categoryStatus(Request $request)
-    {   
+    {
         //dd($request->all());
         if ($request->mode=='true') {
             DB::table('categories')->where('id',$request->id)->update(['status'=>'active']);
