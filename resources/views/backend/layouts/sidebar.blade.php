@@ -72,6 +72,12 @@
                                 <li><a href="{{ route('user.create') }}">Add User</a></li>
                             </ul>
                         </li>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-info"></i><span>Coupon Managemnet</span> </a>
+                            <ul>
+                                <li><a href="{{ route('coupon.index') }}">All Coupon</a></li>
+                                <li><a href="{{ route('coupon.create') }}">Add Coupon</a></li>
+                            </ul>
+                        </li>
                         <li><a href="noticeboard.html"><i class="icon-info"></i>Noticeboard</a></li>
                         <li><a href="app-taskboard.html"><i class="icon-list"></i>Taskboard</a></li>
                         <li><a href="our-centres.html"><i class="icon-pin"></i>University Centres</a></li>

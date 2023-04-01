@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use DB;
 
 class BannerController extends Controller
 {
@@ -15,7 +15,7 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data=Banner::orderBy('id','DESC')->get();
         return view('backend.banners.index',compact('data'));
     }
@@ -50,7 +50,7 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         //dd($request->all());
         $request->validate([
             'title'=>'string|required',
@@ -142,7 +142,7 @@ class BannerController extends Controller
             toastr()->success('Banner Deleted successfully!');
             return redirect()->route('banner.index');
         }
-        
+
         toastr()->error('An error has occurred please try again!');
         return back();
     }

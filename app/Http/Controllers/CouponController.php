@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CouponController extends Controller
 {
@@ -13,7 +15,20 @@ class CouponController extends Controller
      */
     public function index()
     {
-        //
+        $data=Coupon::orderBy('id','DESC')->get();
+        return view('backend.coupon.index',compact('data'));
+    }
+
+    public function couponStatus(Request $request)
+    {
+        if ($request->mode=='true') {
+            DB::table('coupons')->where('id',$request->id)->update(['status'=>'active']);
+        }
+        else{
+            DB::table('coupons')->where('id',$request->id)->update(['status'=>'inactive']);
+        }
+
+        return response()->json(['msg'=>'Successfully Updated Status','status'=>true]);
     }
 
     /**
@@ -23,7 +38,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.coupon.create');
     }
 
     /**
@@ -34,7 +49,18 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'code'=>'required|min:4',
+            'value'=>'required|numeric',
+            'type'=>'required',
+            'status'=>'required',
+        ]);
+        $data=$request->all();
+        $store=Coupon::create($data);
+        if ($store) {
+            return redirect()->route('coupon.index')->with('success',"Coupon Created Successfully!");
+        }
+        return redirect()->back()->with('error',"Error!");
     }
 
     /**

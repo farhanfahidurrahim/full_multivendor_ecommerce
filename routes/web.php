@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -21,7 +22,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// <===========Frontend Part==========>
+Auth::routes(['register'=>false]);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+
+// <================Frontend Part============>
 Route::get('/',[IndexController::class,'index'])->name('home');
 
 //User Authentication
@@ -30,14 +34,16 @@ Route::post('user/login',[IndexController::class,'userLogin'])->name('user.login
 Route::post('user/register',[IndexController::class,'registerSubmit'])->name('user.register');
 Route::get('user/logout',[IndexController::class,'logoutSubmit'])->name('user.logout');
 
-//User Profile
-Route::get('user/dashboard',[IndexController::class,'userDashboard'])->name('user.myaccount');
-Route::get('user/order',[IndexController::class,'userOrder'])->name('user.order');
-Route::get('user/address',[IndexController::class,'userAddress'])->name('user.address');
-Route::post('user/billing-address/{id}',[IndexController::class,'userBillingAddress'])->name('user.billingaddress.store');
-Route::post('user/shipping-address/{id}',[IndexController::class,'userShippingAddress'])->name('user.shippingaddress.store');
-Route::get('user/account-details',[IndexController::class,'userAccountDetails'])->name('user.account.details');
-Route::post('user/account-update/{id}',[IndexController::class,'userAccountUpdate'])->name('user.account.update');
+//User Point
+Route::group(['prefix'=>'user'],function(){
+    Route::get('/dashboard',[IndexController::class,'userDashboard'])->name('user.myaccount');
+    Route::get('/order',[IndexController::class,'userOrder'])->name('user.order');
+    Route::get('/address',[IndexController::class,'userAddress'])->name('user.address');
+    Route::post('/billing-address/{id}',[IndexController::class,'userBillingAddress'])->name('user.billingaddress.store');
+    Route::post('/shipping-address/{id}',[IndexController::class,'userShippingAddress'])->name('user.shippingaddress.store');
+    Route::get('/account-details',[IndexController::class,'userAccountDetails'])->name('user.account.details');
+    Route::post('/account-update/{id}',[IndexController::class,'userAccountUpdate'])->name('user.account.update');
+});
 
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');
@@ -48,14 +54,10 @@ Route::get('cart',[CartController::class,'cartIndex'])->name('cart.index');
 Route::post('cart-store',[CartController::class,'cartStore'])->name('cart.store');
 Route::post('cart-delete',[CartController::class,'cartDelete'])->name('cart.destroy');
 
-//----------------------------------------------------------------
+// <================Backend Part============>
 
-Auth::routes(['register'=>false]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-
-//Admin Dashboard
-Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
+//Admin Point
+Route::group(['prefix'=>'admin','middleware'=>'auth','admin'],function(){
     Route::get('/',[\App\Http\Controllers\AdminController::class,'admin'])->name('admin');
 //Banner Section
     Route::resource('/banner',BannerController::class);
@@ -72,6 +74,14 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
 //User Section
     Route::resource('/user',UserController::class);
     Route::post('/user-status',[UserController::class,'userStatus'])->name('user.status');
+//User Section
+    Route::resource('/coupon',CouponController::class);
+    Route::post('/coupon-status',[CouponController::class,'couponStatus'])->name('coupon.status');
 });
 
+//----------------------------------------------------------------------------------------------
 
+//Seller Point
+// Route::get(['prefix'=>'seller','middleware'=>['auth','seller']],function(){
+//     Route::get();
+// });
