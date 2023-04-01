@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 @section('content')
-
+<link rel="stylesheet" href="sweetalert2.min.css">
 <!-- Quick View Modal Area -->
     <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -197,6 +197,8 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
     <script>
         $(document).on('click','.add_to_cart',function(e){
             e.preventDefault();
@@ -223,7 +225,18 @@
                     $('#add_to_cart'+product_id).html('<i class="fa fa-cart-plus"></i> Add to Cart!');
                 },
                 success:function(data){
-                    cosole.log(data);
+                    console.log(data);
+
+                    if (data['status']) {
+                        $('body #header-ajax').html(data['header']);
+                        $('body #cart_counter').html(data['cart_count']);
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data['message'],
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
                 }
             });
         });

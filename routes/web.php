@@ -44,8 +44,9 @@ Route::get('product-category/{slug}',[IndexController::class,'productCategory'])
 Route::get('product-details/{slug}',[IndexController::class,'productDetails'])->name('product.details');
 
 // Cart
+Route::get('cart',[CartController::class,'cartIndex'])->name('cart.index');
 Route::post('cart-store',[CartController::class,'cartStore'])->name('cart.store');
-
+Route::post('cart-delete',[CartController::class,'cartDelete'])->name('cart.destroy');
 
 //----------------------------------------------------------------
 
