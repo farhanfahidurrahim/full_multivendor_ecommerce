@@ -12,12 +12,40 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class IndexController extends Controller
 {
-    // User Auth : Login Register Logout
-    public function userLoginRegister()
+    // Frontend Part : Home Page Category Products Brand etc
+    public function index()
     {
+        $banner=Banner::where(['status'=>'active','condition'=>'banner'])->orderBy('id','DESC')->limit('3')->get();
+        $categories=Category::where(['status'=>'active','is_parent'=>1])->orderBy('id','DESC')->limit('3')->get();
+        return view('frontend.index',compact('banner','categories'));
+    }
+
+    public function productCategory($slug)
+    {
+        $pdcat=Category::with('productsMR')->where('slug',$slug)->first();
+        return view('frontend.pages.product-category',compact('pdcat'));
+    }
+
+    public function productDetails($slug)
+    {
+        //dd($slug);
+        $prdct_dtls=Product::with('relatedProductMR')->where('slug',$slug)->first();
+        if ($prdct_dtls) {
+            return view('frontend.pages.product.product-details',compact('prdct_dtls'));
+        }
+        else{
+            return 'Product Details Not Found!';
+        }
+    }
+
+    // User Auth : Login Register Logout
+    public function userAuthLoginRegister()
+    {
+        Session::put('url.intendend',URL::previous());
         return view('frontend.auth-user.login-register');
     }
 
@@ -69,32 +97,6 @@ class IndexController extends Controller
         Session::forget('user');
         Auth::logout();
         return redirect()->route('user.auth')->with('success','Successfully Logout!');
-    }
-
-    // Frontend Part : Home Page Category Products Brand etc
-    public function index()
-    {
-        $banner=Banner::where(['status'=>'active','condition'=>'banner'])->orderBy('id','DESC')->limit('3')->get();
-        $categories=Category::where(['status'=>'active','is_parent'=>1])->orderBy('id','DESC')->limit('3')->get();
-        return view('frontend.index',compact('banner','categories'));
-    }
-
-    public function productCategory($slug)
-    {
-        $pdcat=Category::with('productsMR')->where('slug',$slug)->first();
-        return view('frontend.pages.product-category',compact('pdcat'));
-    }
-
-    public function productDetails($slug)
-    {
-        //dd($slug);
-        $prdct_dtls=Product::with('relatedProductMR')->where('slug',$slug)->first();
-        if ($prdct_dtls) {
-            return view('frontend.pages.product.product-details',compact('prdct_dtls'));
-        }
-        else{
-            return 'Product Details Not Found!';
-        }
     }
 
     // User Account : Profile Edit Update Order Billing Shipping

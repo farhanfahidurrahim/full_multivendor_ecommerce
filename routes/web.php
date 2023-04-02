@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -29,7 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/',[IndexController::class,'index'])->name('home');
 
 //User Authentication
-Route::get('user/login-register-form',[IndexController::class,'userLoginRegister'])->name('user.auth');
+Route::get('user/auth/login-register',[IndexController::class,'userAuthLoginRegister'])->name('user.auth');
 Route::post('user/login',[IndexController::class,'userLogin'])->name('user.login');
 Route::post('user/register',[IndexController::class,'registerSubmit'])->name('user.register');
 Route::get('user/logout',[IndexController::class,'logoutSubmit'])->name('user.logout');
@@ -54,6 +55,10 @@ Route::get('cart',[CartController::class,'cartIndex'])->name('cart.index');
 Route::post('cart-store',[CartController::class,'cartStore'])->name('cart.store');
 Route::post('cart-delete',[CartController::class,'cartDelete'])->name('cart.destroy');
 
+Route::post('coupon-add',[CartController::class,'couponAdd'])->name('coupon.add');
+
+//Checkout
+Route::get('checkout1',[CheckoutController::class,'checkout1'])->name('checkout1')->middleware('user');
 // <================Backend Part============>
 
 //Admin Point

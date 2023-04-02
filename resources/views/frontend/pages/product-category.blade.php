@@ -1,6 +1,5 @@
 @extends('frontend.layouts.master')
 @section('content')
-<link rel="stylesheet" href="sweetalert2.min.css">
 <!-- Quick View Modal Area -->
     <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -197,8 +196,6 @@
 @endsection
 
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
     <script>
         $(document).on('click','.add_to_cart',function(e){
             e.preventDefault();

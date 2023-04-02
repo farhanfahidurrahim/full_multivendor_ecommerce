@@ -48,7 +48,6 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->code }}</td>
-                                            <td>{{ $row->value }}</td>
                                             <td>
                                             	@if($row->type=='fixed')
                                             		<span class="badge badge-success">{{ $row->type }}</span>
@@ -56,6 +55,7 @@
                                             		<span class="badge badge-primary">{{ $row->type }}</span>
                                             	@endif
                                             </td>
+                                            <td>{{ $row->value }}</td>
                                             <td>
                                             	<input type="checkbox" name="toogle" value="{{ $row->id }}" data-toggle="switchbutton" {{$row->status=='active' ? 'checked' : ''}} data-onlabel="Active" data-offlabel="Inactive" data-size="sm" data-onstyle="success" data-offstyle="danger">
                                             </td>

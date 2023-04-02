@@ -16,4 +16,7 @@
 <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/active.js') }}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.all.min.js"></script>
+
 @yield('scripts')

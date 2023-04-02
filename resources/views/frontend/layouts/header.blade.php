@@ -256,7 +256,7 @@
                                 </div>
                                 <div class="cart-box d-flex">
                                     <a href="{{ route('cart.index') }}" class="btn btn-info btn-sm">Cart</a>
-                                    <a href="#" class="btn btn-primary btn-sm float-right">Checkout</a>
+                                    <a href="{{ route('checkout1') }}" class="btn btn-primary btn-sm float-right">Checkout</a>
                                 </div>
                             </div>
                         </div>

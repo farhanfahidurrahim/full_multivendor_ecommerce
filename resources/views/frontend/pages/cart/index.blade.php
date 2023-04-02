@@ -36,96 +36,26 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach (Cart::instance('shopping')->content() as $item )
                                 <tr>
                                     <th scope="row">
-                                        <i class="icofont-close"></i>
+                                        <i class="icofont-close cart_delete" data-id="{{ $item->rowId }}"></i>
                                     </th>
                                     <td>
-                                        <img src="img/product-img/onsale-1.png" alt="Product">
+                                        <img src="{{ $item->photo }}" alt="Cart Img">
                                     </td>
                                     <td>
-                                        <a href="#">Bluetooth Speaker</a>
+                                        <a href="#">{{ $item->name }}</a>
                                     </td>
-                                    <td>$9</td>
-                                    <td>
-                                        <div class="quantity">
-                                            <input type="number" class="qty-text" id="qty2" step="1" min="1" max="99" name="quantity" value="1">
-                                        </div>
-                                    </td>
-                                    <td>$9</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <i class="icofont-close"></i>
-                                    </th>
-                                    <td>
-                                        <img src="img/product-img/onsale-2.png" alt="Product">
-                                    </td>
-                                    <td>
-                                        <a href="#">Roof Lamp</a>
-                                    </td>
-                                    <td>$11</td>
+                                    <td>{{ $item->price }}</td>
                                     <td>
                                         <div class="quantity">
-                                            <input type="number" class="qty-text" id="qty3" step="1" min="1" max="99" name="quantity" value="1">
+                                            <input type="number" data-id="{{ $item->rowId }}" class="qty-text" id="qty-input-{{ $item->rowId }}" step="1" min="1" max="99" name="quantity" value="{{ $item->qty }}">
                                         </div>
                                     </td>
-                                    <td>$11</td>
+                                    <td>{{ $item->subtotal() }}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <i class="icofont-close"></i>
-                                    </th>
-                                    <td>
-                                        <img src="img/product-img/onsale-6.png" alt="Product">
-                                    </td>
-                                    <td>
-                                        <a href="#">Cotton T-shirt</a>
-                                    </td>
-                                    <td>$6</td>
-                                    <td>
-                                        <div class="quantity">
-                                            <input type="number" class="qty-text" id="qty4" step="1" min="1" max="99" name="quantity" value="1">
-                                        </div>
-                                    </td>
-                                    <td>$6</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <i class="icofont-close"></i>
-                                    </th>
-                                    <td>
-                                        <img src="img/product-img/onsale-4.png" alt="Product">
-                                    </td>
-                                    <td>
-                                        <a href="#">Water Bottle</a>
-                                    </td>
-                                    <td>$17</td>
-                                    <td>
-                                        <div class="quantity">
-                                            <input type="number" class="qty-text" id="qty5" step="1" min="1" max="99" name="quantity" value="1">
-                                        </div>
-                                    </td>
-                                    <td>$17</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <i class="icofont-close"></i>
-                                    </th>
-                                    <td>
-                                        <img src="img/product-img/onsale-5.png" alt="Product">
-                                    </td>
-                                    <td>
-                                        <a href="#">Alka Sliper</a>
-                                    </td>
-                                    <td>$13</td>
-                                    <td>
-                                        <div class="quantity">
-                                            <input type="number" class="qty-text" id="qty6" step="1" min="1" max="99" name="quantity" value="1">
-                                        </div>
-                                    </td>
-                                    <td>$13</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -138,9 +68,10 @@
                     <p>Enter your coupon code here &amp; get awesome discounts!</p>
                     <!-- Form -->
                     <div class="coupon-form">
-                        <form action="#">
-                            <input type="text" class="form-control" placeholder="Enter Your Coupon Code">
-                            <button type="submit" class="btn btn-primary">Apply Coupon</button>
+                        <form action="{{ route('coupon.add') }}" method="POST" id="coupon-form">
+                            @csrf
+                            <input type="text" name="code" class="form-control" placeholder="Enter Your Coupon Code">
+                            <button type="submit" class="coupon-btn btn btn-primary">Apply Coupon</button>
                         </form>
                     </div>
                 </div>
@@ -154,24 +85,24 @@
                             <tbody>
                                 <tr>
                                     <td>Sub Total</td>
-                                    <td>$56.00</td>
+                                    <td>${{ Cart::subtotal() }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Shipping</td>
-                                    <td>$10.00</td>
-                                </tr>
-                                <tr>
-                                    <td>VAT (10%)</td>
-                                    <td>$5.60</td>
+                                    <td>Save Amount</td>
+                                    <td>$@if(Session::get('coupon')){{ number_format(Session::get('coupon')['value']) }} @else 0 @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
-                                    <td>$71.60</td>
+                                    @if (Session::has('coupon'))
+                                    <td>${{ Cart::subtotal()-Session::get('coupon')['value'] }}</td>
+                                    @else
+                                    ${{ Cart::subtotal() }}
+                                    @endif
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <a href="checkout-1.html" class="btn btn-primary d-block">Proceed To Checkout</a>
+                    <a href="{{ route('checkout1') }}" class="btn btn-primary d-block">Proceed To Checkout</a>
                 </div>
             </div>
         </div>
@@ -179,4 +110,64 @@
 </div>
 <!-- Cart Area End -->
 
+@endsection
+
+@section('scripts')
+    <!-- Cart Destroy by Ajax -->
+    <script>
+        $(document).on('click','.cart_delete',function(e){
+            e.preventDefault();
+            var cart_id=$(this).data('id');
+
+            var token="{{ csrf_token() }}";
+            var path="{{ route('cart.destroy') }}";
+
+            $.ajax({
+                url:path,
+                type:"POST",
+                dataType:"JSON",
+                data:{
+                    cart_id: cart_id,
+                    _token:token,
+                },
+                success:function(data){
+                    console.log(data);
+
+                    if (data['status']) {
+                        $('body #header-ajax').html(data['header']);
+                        $('body #cart_counter').html(data['cart_count']);
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data['message'],
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    }
+                },
+                error:function (err){
+                    console.log(err);
+                }
+            });
+        });
+    </script>
+
+    <!-- Cart Product Quantity Update by Ajax -->
+    <script>
+        $(document).on('click','.qty-text',function(){
+            var id=$(this).data('id');
+
+            var spinner=$(this),input=spinner.closest("div.quantity").find('input[type="number"]');
+            alert(input.val());
+        });
+    </script>
+
+    <!-- Apply Coupon on Cart Page by Ajax -->
+    <script>
+        $(document).on('click','.coupon-btn',function(e){
+            e.preventDefault();
+            var code=$('input[name=code]').val();
+            $('.coupon-btn').html('<i class="fa fa-spinner fa-spin"></i> Applying...');
+            $('#coupon-form').submit();
+        });
+    </script>
 @endsection

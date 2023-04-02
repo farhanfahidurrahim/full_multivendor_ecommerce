@@ -8,7 +8,7 @@
     <title> FRF | E-Commerce</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="{{ asset('frontend/img/core-img/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('frontend/img/core-img/fav-icon.png') }}">
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/classy-nav.min.css') }}">
@@ -24,3 +24,5 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="sweetalert2.min.css">
