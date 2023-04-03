@@ -34,62 +34,52 @@
                     <h5 class="mb-4">Billing Details</h5>
                     <form action="#" method="post">
                         <div class="row">
+                            @php
+                                $name=explode(' ',$userInfo->full_name);
+                            @endphp
                             <div class="col-md-6 mb-3">
                                 <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" id="first_name" placeholder="First Name" value="" required>
+                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" value="{{ $name[0] }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" placeholder="Last Name" value="" required>
+                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" value="{{ $name[1] }}" required>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            {{-- <div class="col-md-6 mb-3">
                                 <label for="company">Company Name</label>
                                 <input type="text" class="form-control" id="company" placeholder="Company Name" value="">
-                            </div>
+                            </div> --}}
                             <div class="col-md-6 mb-3">
                                 <label for="email_address">Email Address</label>
-                                <input type="email" class="form-control" id="email_address" placeholder="Email Address" value="">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" value="{{ $userInfo->email }}" disabled>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="phone_number">Phone Number</label>
-                                <input type="number" class="form-control" id="phone_number" min="0" value="">
+                                <input type="number" class="form-control" name="phone" id="phone" min="0" value="{{ $userInfo->phone }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="country">Country</label>
-                                <select class="custom-select d-block w-100 form-control" id="country">
-                                    <option value="usa">United States</option>
-                                    <option value="uk">United Kingdom</option>
-                                    <option value="ger">Germany</option>
-                                    <option value="fra">France</option>
-                                    <option value="ind">India</option>
-                                    <option value="aus">Australia</option>
-                                    <option value="bra">Brazil</option>
-                                    <option value="cana">Canada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label for="street_address">Street address</label>
-                                <input type="text" class="form-control" id="street_address" placeholder="Street Address" value="">
+                                <label for="street_address">Full Address</label>
+                                <input type="text" class="form-control" name="address" id="address" placeholder="Street Address" value="{{ $userInfo->address }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="apartment_suite">Apartment/Suite/Unit</label>
-                                <input type="text" class="form-control" id="apartment_suite" placeholder="Apartment, suite, unit etc" value="">
+                                <label for="street_address">Upazila/City</label>
+                                <input type="text" class="form-control" name="city" id="city" placeholder="Street City" value="{{ $userInfo->city }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="city">Town/City</label>
-                                <input type="text" class="form-control" id="city" placeholder="Town/City" value="">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="state">State</label>
-                                <input type="text" class="form-control" id="state" placeholder="State" value="">
+                                <label for="state">District/State</label>
+                                <input type="text" class="form-control" name="state" id="state" placeholder="State" value="{{ $userInfo->state }}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="postcode">Postcode/Zip</label>
-                                <input type="text" class="form-control" id="postcode" placeholder="Postcode / Zip" value="">
+                                <input type="text" class="form-control" name="postcode" id="postcode" placeholder="Postcode / Zip" value="{{ $userInfo->postcode }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="country">Country</label>
+                                <input type="text" class="form-control" name="country" id="country" min="0" value="{{ $userInfo->country }}">
                             </div>
                             <div class="col-md-12">
                                 <label for="order-notes">Order Notes</label>
-                                <textarea class="form-control" id="order-notes" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                <textarea class="form-control" name="note" id="order-notes" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                             </div>
                         </div>
 
@@ -98,62 +88,48 @@
                             <div class="ship-different-title mb-3">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Ship to a different address?</label>
+                                    <label class="custom-control-label" for="customCheck1">Ship to a same address??</label>
                                 </div>
                             </div>
                             <div class="row shipping_input_field">
+                                @php
+                                    $name=explode(' ',$userInfo->full_name);
+                                @endphp
                                 <div class="col-md-6 mb-3">
                                     <label for="first_name">First Name</label>
-                                    <input type="text" class="form-control" id="first-name" placeholder="First Name" value="" required>
+                                    <input type="text" class="form-control" name="shipping_first_name" id="shipping_first_name" placeholder="First Name" value="{{ $name[0] }}" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="last_name">Last Name</label>
-                                    <input type="text" class="form-control" id="last-name" placeholder="Last Name" value="" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="company">Company Name</label>
-                                    <input type="text" class="form-control" id="ship-company" placeholder="Company Name" value="">
+                                    <input type="text" class="form-control" name="shipping_last_name" id="shipping_last_name" placeholder="Last Name" value="{{ $name[1] }}" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="email_address">Email Address</label>
-                                    <input type="email" class="form-control" id="email-address" placeholder="Email Address" value="">
+                                    <input type="email" class="form-control" name="shipping_email" id="shipping_email" placeholder="Email Address" value="{{ $userInfo->email }}" disabled>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="phone_number">Phone Number</label>
-                                    <input type="number" class="form-control" id="phone-number" min="0" value="">
+                                    <input type="number" class="form-control" name="shipping_phone" id="shipping_phone" min="0" placeholder="Phone Number" value="{{ $userInfo->phone }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="street_address">Full Address</label>
+                                    <input type="text" class="form-control" name="shipping_address" id="shipping_address" placeholder="Full Address" value="{{ $userInfo->shipping_address }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="street_address">Upazila/City</label>
+                                    <input type="text" class="form-control" name="shipping_city" id="shipping_city" placeholder="Upazila / City" value="{{ $userInfo->shipping_city }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="state">District/State</label>
+                                    <input type="text" class="form-control" name="shipping_state" id="shipping_state" placeholder="District / State" value="{{ $userInfo->shipping_state }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="postcode">Postcode/Zip</label>
+                                    <input type="text" class="form-control" name="shipping_postcode" id="shipping_postcode" placeholder="Postcode / Zip" value="{{ $userInfo->shipping_postcode }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="country">Country</label>
-                                    <select class="custom-select d-block w-100 form-control" id="ship-country">
-                                        <option value="usa">United States</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="ger">Germany</option>
-                                        <option value="fra">France</option>
-                                        <option value="ind">India</option>
-                                        <option value="aus">Australia</option>
-                                        <option value="bra">Brazil</option>
-                                        <option value="cana">Canada</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="street_address">Street address</label>
-                                    <input type="text" class="form-control" id="street-address" placeholder="Street Address" value="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="apartment_suite">Apartment/Suite/Unit</label>
-                                    <input type="text" class="form-control" id="apartment-suite" placeholder="Apartment, suite, unit etc" value="">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="city">Town/City</label>
-                                    <input type="text" class="form-control" id="ship-city" placeholder="Town/City" value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="state">State</label>
-                                    <input type="text" class="form-control" id="ship-state" placeholder="State" value="">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="postcode">Postcode/Zip</label>
-                                    <input type="text" class="form-control" id="ship-postcode" placeholder="Postcode / Zip" value="">
+                                    <input type="text" class="form-control" name="shipping_country" id="shipping_country" placeholder="Country" value="{{ $userInfo->shipping_country }}">
                                 </div>
                             </div>
                         </div>
@@ -172,4 +148,34 @@
 </div>
 <!-- Checkout Area -->
 
+@endsection
+
+@section('scripts')
+    <script>
+        $('#customCheck1').on('change',function(e){
+            e.preventDefault();
+            if (this.checked) {
+                $('#shipping_first_name').val($('#first_name').val());
+                $('#shipping_last_name').val($('#last_name').val());
+                $('#shipping_email').val($('#email').val());
+                $('#shipping_phone').val($('#phone').val());
+                $('#shipping_address').val($('#address').val());
+                $('#shipping_city').val($('#city').val());
+                $('#shipping_state').val($('#state').val());
+                $('#shipping_postcode').val($('#postcode').val());
+                $('#shipping_country').val($('#country').val());
+            }
+            else{
+                $('#shipping_first_name').val("");
+                $('#shipping_last_name').val("");
+                $('#shipping_email').val("");
+                $('#shipping_phone').val("");
+                $('#shipping_address').val("");
+                $('#shipping_city').val("");
+                $('#shipping_state').val("");
+                $('#shipping_postcode').val("");
+                $('#shipping_country').val("");
+            }
+        })
+    </script>
 @endsection

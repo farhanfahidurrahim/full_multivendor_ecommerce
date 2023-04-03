@@ -119,7 +119,7 @@ class IndexController extends Controller
 
     public function userBillingAddress(Request $request,$id)
     {
-        $update=User::where('id',$id)->update(['b_address'=>$request->b_address,'b_city'=>$request->b_city,'b_postcode'=>$request->b_postcode,'b_state'=>$request->b_state,'b_country'=>$request->b_country]);
+        $update=User::where('id',$id)->update(['address'=>$request->address,'city'=>$request->city,'postcode'=>$request->postcode,'state'=>$request->state,'country'=>$request->country]);
         if ($update) {
             return back()->with('success',"Billing Address Successfully Updated!");
         }
@@ -130,7 +130,7 @@ class IndexController extends Controller
 
     public function userShippingAddress(Request $request,$id)
     {
-        $update=User::where('id',$id)->update(['s_address'=>$request->s_address,'s_city'=>$request->s_city,'s_postcode'=>$request->s_postcode,'s_state'=>$request->s_state,'s_country'=>$request->s_country]);
+        $update=User::where('id',$id)->update(['shipping_address'=>$request->shipping_address,'shipping_city'=>$request->shipping_city,'shipping_postcode'=>$request->shipping_postcode,'shipping_state'=>$request->shipping_state,'shipping_country'=>$request->shipping_country]);
         if ($update) {
             return back()->with('success',"Shipping Address Successfully Updated!");
         }

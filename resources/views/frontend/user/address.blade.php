@@ -33,11 +33,11 @@
                             <div class="col-12 col-lg-6 mb-5 mb-lg-0">
                                 <h6 class="mb-3">Billing Address</h6>
                                 <address>
-                                    {{ $usr->b_address }} <br>
-                                    {{ $usr->b_city }} <br>
-                                    {{ $usr->b_state }} <br>
-                                    {{ $usr->b_postcode }} <br>
-                                    {{ $usr->b_country }}
+                                    {{ $usr->address }} <br>
+                                    {{ $usr->city }} <br>
+                                    {{ $usr->state }} <br>
+                                    {{ $usr->postcode }} <br>
+                                    {{ $usr->country }}
                                 </address>
 
                                 <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
@@ -59,23 +59,23 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="">Billing Address</label>
-                                                        <textarea name="b_address" class="form-control" id="">{{ $usr->b_address }}</textarea>
+                                                        <textarea name="address" class="form-control" id="">{{ $usr->address }}</textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Billing City</label>
-                                                        <input name="b_city" value="{{ $usr->b_city }}" class="form-control" id="">
+                                                        <input name="city" value="{{ $usr->city }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Billing Postcode</label>
-                                                        <input name="b_postcode" value="{{ $usr->b_postcode }}" class="form-control" id="">
+                                                        <input name="postcode" value="{{ $usr->postcode }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">Billing District</label>
-                                                        <input name="b_state" value="{{ $usr->b_state }}" class="form-control" id="">
+                                                        <label for="">Billing District/State</label>
+                                                        <input name="state" value="{{ $usr->state }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Billing Country</label>
-                                                        <input name="b_country" value="{{ $usr->b_country }}" class="form-control" id="">
+                                                        <input name="country" value="{{ $usr->country }}" class="form-control" id="">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -91,11 +91,11 @@
                             <div class="col-12 col-lg-6">
                                 <h6 class="mb-3">Shipping Address</h6>
                                 <address>
-                                    {{ $usr->s_address }} <br>
-                                    {{ $usr->s_city }} <br>
-                                    {{ $usr->s_state }} <br>
-                                    {{ $usr->s_postcode }} <br>
-                                    {{ $usr->s_country }}
+                                    {{ $usr->shipping_address }} <br>
+                                    {{ $usr->shipping_city }} <br>
+                                    {{ $usr->shipping_state }} <br>
+                                    {{ $usr->shipping_postcode }} <br>
+                                    {{ $usr->shipping_country }}
                                 </address>
                                 <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
                                     data-target="#editShippingAddress">Edit Shipping Address</a>
@@ -116,23 +116,23 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="">Shipping Address</label>
-                                                        <textarea name="s_address" class="form-control" id="">{{ $usr->s_address }}</textarea>
+                                                        <textarea name="shipping_address" class="form-control" id="">{{ $usr->shipping_address }}</textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Shipping City</label>
-                                                        <input name="s_city" value="{{ $usr->s_city }}" class="form-control" id="">
+                                                        <input name="shipping_city" value="{{ $usr->shipping_city }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Shipping Postcode</label>
-                                                        <input name="s_postcode" value="{{ $usr->s_postcode }}" class="form-control" id="">
+                                                        <input name="shipping_postcode" value="{{ $usr->shipping_postcode }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">Shipping District</label>
-                                                        <input name="s_state" value="{{ $usr->s_state }}" class="form-control" id="">
+                                                        <label for="">Shipping District/State</label>
+                                                        <input name="shipping_state" value="{{ $usr->shipping_state }}" class="form-control" id="">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Shipping Country</label>
-                                                        <input name="s_country" value="{{ $usr->s_country }}" class="form-control" id="">
+                                                        <input name="shipping_country" value="{{ $usr->shipping_country }}" class="form-control" id="">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

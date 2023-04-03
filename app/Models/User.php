@@ -28,16 +28,16 @@ class User extends Authenticatable
         'address',
         'status',
 
-        'b_country',
-        'b_city',
-        'b_postcode',
-        'b_state',
-        'b_address',
-        's_country',
-        's_city',
-        's_postcode',
-        's_state',
-        's_address',
+        'country',
+        'city',
+        'postcode',
+        'state',
+
+        'shipping_country',
+        'shipping_city',
+        'shipping_postcode',
+        'shipping_state',
+        'shipping_address',
     ];
 
     /**
