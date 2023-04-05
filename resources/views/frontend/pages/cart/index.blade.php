@@ -42,7 +42,7 @@
                                                 <i class="icofont-close cart_delete" data-id="{{ $item->rowId }}"></i>
                                             </th>
                                             <td>
-                                                <img src="{{ $item->photo }}" alt="Cart Img">
+                                                <img src="{{ $item->model->photo }}" alt="Cart Img">
                                             </td>
                                             <td>
                                                 <a href="#">{{ $item->name }}</a>

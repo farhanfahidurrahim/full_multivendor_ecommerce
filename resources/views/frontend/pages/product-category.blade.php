@@ -102,11 +102,12 @@
                                 <a href="shop-list-left-sidebar.html" data-toggle="tooltip" data-placement="top" title="List View"><i class="icofont-listine-dots"></i></a>
                             </div>
                         </div>
-                        <select class="small right">
-                            <option selected>Short by Popularity</option>
-                            <option value="1">Short by Newest</option>
-                            <option value="2">Short by Sales</option>
-                            <option value="3">Short by Ratings</option>
+                        <select id="sortBy" class="small right">
+                            <option selected>Short by</option>
+                            <option value="priceAsc">Price - Low to High</option>
+                            <option value="priceDesc">Price - High to Low</option>
+                            <option value="titleAsc">Alphabetic - A to Z</option>
+                            <option value="titleDesc">Alphabetic - Z to A</option>
                         </select>
                     </div>
 
@@ -187,7 +188,6 @@
                             </ul>
                         </nav>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -196,6 +196,7 @@
 @endsection
 
 @section('scripts')
+    {{-- Add To Cart by Ajax --}}
     <script>
         $(document).on('click','.add_to_cart',function(e){
             e.preventDefault();
@@ -236,6 +237,15 @@
                     }
                 }
             });
+        });
+    </script>
+
+    {{-- Add To Cart by Ajax --}}
+    <script>
+        $('#sortBy').change(function(){
+            var sort=$('#sortBy').val();
+
+            window.location="{{ url(''.$route.'') }}/{{ $pdcat->slug }}?sort="+sort;
         });
     </script>
 @endsection

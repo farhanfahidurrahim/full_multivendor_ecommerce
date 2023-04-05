@@ -24,10 +24,25 @@ class IndexController extends Controller
         return view('frontend.index',compact('banner','categories'));
     }
 
-    public function productCategory($slug)
+    public function productCategory(Request $request,$slug)
     {
         $pdcat=Category::with('productsMR')->where('slug',$slug)->first();
-        return view('frontend.pages.product-category',compact('pdcat'));
+
+        $sort='';
+        if ($request->sort !=null) {
+            $sort=$request->sort;
+        }
+        if ($pdcat==null) {
+            return back();
+        }
+        else{
+            if ($sort=='priceAsc') {
+                # code...
+            }
+        }
+
+        $route='product-category';
+        return view('frontend.pages.product-category',compact(['pdcat','route']));
     }
 
     public function productDetails($slug)

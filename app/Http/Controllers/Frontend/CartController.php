@@ -23,7 +23,7 @@ class CartController extends Controller
             $cart_array[]=$item->id;
         }
 
-        $result=Cart::instance('shopping')->add($product_id,$product[0]['title'],$product_qty,$price)->associate('Product');
+        $result=Cart::instance('shopping')->add($product_id,$product[0]['title'],$product_qty,$price)->associate('\App\Models\Product');
 
         if ($result) {
             $response['status']=true;
