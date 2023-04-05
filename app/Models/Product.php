@@ -40,4 +40,5 @@ class Product extends Model
     {
         return self::where('id',$id)->get()->toArray();
     }
+
 }

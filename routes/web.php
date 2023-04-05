@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\ShippingController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -58,7 +59,13 @@ Route::post('cart-delete',[CartController::class,'cartDelete'])->name('cart.dest
 Route::post('coupon-add',[CartController::class,'couponAdd'])->name('coupon.add');
 
 //Checkout
-Route::get('checkout1',[CheckoutController::class,'checkout1'])->name('checkout1')->middleware('user');
+Route::get('checkout',[CheckoutController::class,'checkout1'])->name('checkout1')->middleware('user');
+Route::post('checkout-store',[CheckoutController::class,'checkout1Store'])->name('checkout1.store');
+Route::post('checkout-payment',[CheckoutController::class,'checkout2Store'])->name('checkout2.store');
+Route::post('checkout-final',[CheckoutController::class,'checkout3Store'])->name('checkout3.store');
+Route::get('checkout-confirm',[CheckoutController::class,'checkoutStore'])->name('checkout4.store');
+Route::get('checkout-complete/{order}',[CheckoutController::class,'checkoutComplete'])->name('checkout.complete');
+
 // <================Backend Part============>
 
 //Admin Point
@@ -79,9 +86,12 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin'],function(){
 //User Section
     Route::resource('/user',UserController::class);
     Route::post('/user-status',[UserController::class,'userStatus'])->name('user.status');
-//User Section
+//Coupon Section
     Route::resource('/coupon',CouponController::class);
     Route::post('/coupon-status',[CouponController::class,'couponStatus'])->name('coupon.status');
+//Shipping Section
+    Route::resource('/shipping',ShippingController::class);
+    Route::post('/shipping-status',[ShippingController::class,'shippingStatus'])->name('shipping.status');
 });
 
 //----------------------------------------------------------------------------------------------

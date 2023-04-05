@@ -8,7 +8,7 @@
             <div class="col-12">
                 <h5>Checkout</h5>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Checkout</li>
                 </ol>
             </div>
@@ -32,7 +32,8 @@
             <div class="col-12">
                 <div class="checkout_details_area clearfix">
                     <h5 class="mb-4">Billing Details</h5>
-                    <form action="#" method="post">
+                    <form action="{{ route('checkout1.store') }}" method="post">
+                        @csrf
                         <div class="row">
                             @php
                                 $name=explode(' ',$userInfo->full_name);
@@ -51,7 +52,7 @@
                             </div> --}}
                             <div class="col-md-6 mb-3">
                                 <label for="email_address">Email Address</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" value="{{ $userInfo->email }}" disabled>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" value="{{ $userInfo->email }}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="phone_number">Phone Number</label>
@@ -83,7 +84,7 @@
                             </div>
                         </div>
 
-                        <!-- Different Shipping Address -->
+                        <!-- Same Shipping Address -->
                         <div class="different-address mt-50">
                             <div class="ship-different-title mb-3">
                                 <div class="custom-control custom-checkbox">
@@ -105,7 +106,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="email_address">Email Address</label>
-                                    <input type="email" class="form-control" name="shipping_email" id="shipping_email" placeholder="Email Address" value="{{ $userInfo->email }}" disabled>
+                                    <input type="email" class="form-control" name="shipping_email" id="shipping_email" placeholder="Email Address" value="{{ $userInfo->email }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="phone_number">Phone Number</label>
@@ -131,16 +132,17 @@
                                     <label for="country">Country</label>
                                     <input type="text" class="form-control" name="shipping_country" id="shipping_country" placeholder="Country" value="{{ $userInfo->shipping_country }}">
                                 </div>
+                                <div class="col-12">
+                                    <input type="hidden" name="sub_total" value="{{ Cart::instance('shopping')->subtotal() }}">
+                                    <input type="hidden" name="total_amount" value="{{ Cart::instance('shopping')->subtotal() }}">
+                                    <div class="checkout_pagination d-flex justify-content-end mt-50">
+                                        <a href="{{ route('cart.index') }}" class="btn btn-primary mt-2 ml-2">Go Back</a>
+                                        <button type="submit" class="btn btn-primary mt-2 ml-2">Continue</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-
-            <div class="col-12">
-                <div class="checkout_pagination d-flex justify-content-end mt-50">
-                    <a href="checkout-1.html" class="btn btn-primary mt-2 ml-2">Go Back</a>
-                    <a href="checkout-3.html" class="btn btn-primary mt-2 ml-2">Continue</a>
                 </div>
             </div>
         </div>

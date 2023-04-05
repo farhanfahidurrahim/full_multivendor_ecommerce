@@ -78,6 +78,12 @@
                                 <li><a href="{{ route('coupon.create') }}">Add Coupon</a></li>
                             </ul>
                         </li>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-info"></i><span>Shipping Managemnet</span> </a>
+                            <ul>
+                                <li><a href="{{ route('shipping.index') }}">All Shipping</a></li>
+                                <li><a href="{{ route('shipping.create') }}">Add Shipping</a></li>
+                            </ul>
+                        </li>
                         <li><a href="noticeboard.html"><i class="icon-info"></i>Noticeboard</a></li>
                         <li><a href="app-taskboard.html"><i class="icon-list"></i>Taskboard</a></li>
                         <li><a href="our-centres.html"><i class="icon-pin"></i>University Centres</a></li>

@@ -63,6 +63,9 @@ class CartController extends Controller
 
     public function cartIndex()
     {
+        foreach (Cart::instance('shopping')->content() as $value) {
+            dd($value->model);
+        }
         return view('frontend.pages.cart.index');
     }
 
