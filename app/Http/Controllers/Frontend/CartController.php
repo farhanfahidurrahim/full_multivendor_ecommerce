@@ -36,7 +36,6 @@ class CartController extends Controller
         if ($request->ajax()) {
             $header=view('frontend.layouts.header')->render();
             $response['header']=$header;
-
         }
 
         return json_encode($response);
@@ -63,9 +62,9 @@ class CartController extends Controller
 
     public function cartIndex()
     {
-        foreach (Cart::instance('shopping')->content() as $value) {
-            dd($value->model);
-        }
+        // foreach (Cart::instance('shopping')->content() as $value) {
+        //     dd($value->model);
+        // }
         return view('frontend.pages.cart.index');
     }
 

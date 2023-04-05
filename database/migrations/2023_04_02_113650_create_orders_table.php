@@ -28,18 +28,18 @@ class CreateOrdersTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone');
             $table->string('address');
             $table->string('city');
             $table->string('state');
             $table->string('postcode');
             $table->string('country');
-            $table->mediumText('note');
+            $table->mediumText('note')->nullable();
 
             $table->string('shipping_first_name');
             $table->string('shipping_last_name');
-            $table->string('shipping_email')->unique();
+            $table->string('shipping_email');
             $table->string('shipping_phone');
             $table->string('shipping_address');
             $table->string('shipping_city');

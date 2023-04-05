@@ -93,7 +93,7 @@
                                     <tr>
                                         <td>Save Amount</td>
                                         <td>$@if (Session::get('coupon'))
-                                                {{ number_format(Session::get('coupon')['value']) }}
+                                                {{ number_format(Session::get('coupon')['value'],2) }}
                                             @else
                                                 0
                                             @endif
@@ -105,7 +105,7 @@
                                             <td>${{ number_format((float) str_replace(',', '', Cart::subtotal()) - Session::get('coupon')['value'], 2) }}
                                             </td>
                                         @else
-                                            ${{ Cart::subtotal() }}
+                                            <td>${{ Cart::subtotal() }}</td>
                                         @endif
                                     </tr>
                                 </tbody>

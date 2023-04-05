@@ -30,6 +30,15 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+            @if ($errors->any())
+                <div class="alert alert-danger" id="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error )
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
                 <div class="checkout_details_area clearfix">
                     <h5 class="mb-4">Billing Details</h5>
                     <form action="{{ route('checkout1.store') }}" method="post">
@@ -56,7 +65,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="phone_number">Phone Number</label>
-                                <input type="number" class="form-control" name="phone" id="phone" min="0" value="{{ $userInfo->phone }}">
+                                <input type="number" class="form-control" name="phone" id="phone" min="0" value="{{ old('phone') }}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="street_address">Full Address</label>

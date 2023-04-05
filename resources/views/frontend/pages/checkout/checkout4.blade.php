@@ -95,20 +95,22 @@
                                 @endif
                                 <tr>
                                     <td>Total</td>
-                                    {{-- @if (Session::has('coupon'))
-                                        <td>${{ Session::get('coupon')['value'],2 }}</td> --}}
-                                    @if(Session::has('checkout'))
+                                    @if (Session::has('coupon') && Session::has('checkout'))
+                                        <td>${{ number_format((float) str_replace(',','',Cart::subtotal())+Session::get('checkout')[0]['delivery_charge']-Session::get('coupon')['value'],2) }}</td>
+                                        {{-- <td>${{ number_format((float) str_replace(',', '', Cart::subtotal()) - Session::get('coupon')['value'], 2)</td> --}}
+                                    @elseif(Session::has('coupon'))
+                                        <td>${{ number_format((float) str_replace(',','',Cart::subtotal())-Session::get('coupon')['value'],2) }}</td>
+                                    @elseif(Session::has('checkout'))
                                         <td>${{ number_format((float) str_replace(',','',Cart::subtotal())+Session::get('checkout')[0]['delivery_charge'],2) }}</td>
-                                        {{-- <td>${{ number_format((float) str_replace(',','',Cart::subtotal())-Session::get('coupon')['value'],2) }}</td> --}}
-                                    @elseif (Session::has('coupon') && Session::has('checkout'))
-                                        <td>${{ number_format((float) str_replace(',','',Cart::subtotal()+Session::get('checkout')[0]['delivery_charge'])-Session::get('coupon')['value'],2) }}</td>
+                                    @else
+                                        <td>${{ number_format(Cart::subtotal(),2) }}</td>
                                     @endif
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="checkout_pagination d-flex justify-content-end mt-3">
-                        <a href="" class="btn btn-primary mt-2 ml-2 d-none d-sm-inline-block">Go Back</a>
+                        <a href="{{ route('cart.index') }}" class="btn btn-primary mt-2 ml-2 d-none d-sm-inline-block">Go Back</a>
                         <a href="{{ route('checkout4.store') }}" class="btn btn-primary mt-2 ml-2">Confirm</a>
                     </div>
                 </div>

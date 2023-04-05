@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shipping;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -22,7 +23,19 @@ class CheckoutController extends Controller
     public function checkout1Store(Request $request)
     {
         $request->validate([
+            'first_name'=>'string|required',
+            'last_name'=>'string|required',
             'email'=>'email|required|exists:users,email',
+            'address'=>'string|required',
+            'city'=>'string|required',
+            'state'=>'string|required',
+            'postcode'=>'numeric|required',
+            'country'=>'string|required',
+            'shipping_address'=>'string|required',
+            'shipping_city'=>'string|required',
+            'shipping_state'=>'string|required',
+            'shipping_postcode'=>'numeric|required',
+            'shipping_country'=>'string|required',
         ]);
         Session::put('checkout',[
             'first_name'=>$request->first_name,
@@ -117,6 +130,7 @@ class CheckoutController extends Controller
 
         $store=$order->save();
         if ($store) {
+            Cart::instance('shopping')->destroy();
             Session::forget('coupon');
             Session::forget('checkout');
             return redirect()->route('checkout.complete',$order['order_number']);
