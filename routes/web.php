@@ -28,7 +28,12 @@ Auth::routes(['register'=>false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 // <================Frontend Part============>
+
+//Home
 Route::get('/',[IndexController::class,'index'])->name('home');
+
+//Shop
+Route::get('shop',[IndexController::class,'shop'])->name('shop');
 
 //User Authentication
 Route::get('user/auth/login-register',[IndexController::class,'userAuthLoginRegister'])->name('user.auth');
@@ -65,6 +70,7 @@ Route::post('checkout-payment',[CheckoutController::class,'checkout2Store'])->na
 Route::post('checkout-final',[CheckoutController::class,'checkout3Store'])->name('checkout3.store');
 Route::get('checkout-confirm',[CheckoutController::class,'checkoutStore'])->name('checkout4.store');
 Route::get('checkout-complete/{order}',[CheckoutController::class,'checkoutComplete'])->name('checkout.complete');
+
 
 // <================Backend Part============>
 

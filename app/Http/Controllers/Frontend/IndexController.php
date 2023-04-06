@@ -16,12 +16,19 @@ use Illuminate\Support\Facades\URL;
 
 class IndexController extends Controller
 {
-    // Frontend Part : Home Page Category Products Brand etc
+    // Frontend Home Page : Home Page Category Products Brand etc
     public function index()
     {
         $banner=Banner::where(['status'=>'active','condition'=>'banner'])->orderBy('id','DESC')->limit('3')->get();
         $categories=Category::where(['status'=>'active','is_parent'=>1])->orderBy('id','DESC')->limit('3')->get();
         return view('frontend.index',compact('banner','categories'));
+    }
+
+    // Frontend Header : Shop
+    public function shop()
+    {
+        $products=Product::where('status','active')->paginate(12);
+        return view('frontend.pages.product.shop',compact('products'));
     }
 
     public function productCategory(Request $request,$slug)
