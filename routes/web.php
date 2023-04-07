@@ -79,8 +79,13 @@ Route::get('checkout-complete/{order}',[CheckoutController::class,'checkoutCompl
 
 // <================Backend Part============>
 
+//Admin Login Auth
+Route::group(['prefix'=>'admin'],function(){
+    Route::get('/login',[\App\Http\Controllers\Auth\Admin\LoginController::class,'ShowLoginForm'])->name('admin.login.form');
+    Route::post('/login',[\App\Http\Controllers\Auth\Admin\LoginController::class,'login'])->name('admin.login');
+});
 //Admin Point
-Route::group(['prefix'=>'admin','middleware'=>'auth','admin'],function(){
+Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
     Route::get('/',[\App\Http\Controllers\AdminController::class,'admin'])->name('admin');
 //Banner Section
     Route::resource('/banner',BannerController::class);

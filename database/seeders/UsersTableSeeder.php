@@ -16,26 +16,25 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            // //Admin
+            // [
+            //     'full_name'=>'Farhan Fahidur Rahim Admin',
+            //     'username'=>'Admin',
+            //     'email'=>'admin@gmail.com',
+            //     'password'=>Hash::make('12345678'),
+            //     'role'=>'admin',
+            //     'status'=>'active',
+            // ],
 
-            //Admin
-            [
-                'full_name'=>'Farhan Fahidur Rahim Admin',
-                'username'=>'Admin',
-                'email'=>'admin@gmail.com',
-                'password'=>Hash::make('12345678'),
-                'role'=>'admin',
-                'status'=>'active',
-            ],
-
-            //Vendor
-            [
-                'full_name'=>'Farhan Fahidur Rahim Seller',
-                'username'=>'Seller',
-                'email'=>'seller@gmail.com',
-                'password'=>Hash::make('12345678'),
-                'role'=>'seller',
-                'status'=>'active',
-            ],
+            // //Seller
+            // [
+            //     'full_name'=>'Farhan Fahidur Rahim Seller',
+            //     'username'=>'Seller',
+            //     'email'=>'seller@gmail.com',
+            //     'password'=>Hash::make('12345678'),
+            //     'role'=>'seller',
+            //     'status'=>'active',
+            // ],
 
             //Customer
             [
@@ -43,7 +42,16 @@ class UsersTableSeeder extends Seeder
                 'username'=>'Customer',
                 'email'=>'customer@gmail.com',
                 'password'=>Hash::make('12345678'),
-                'role'=>'customer',
+                'status'=>'active',
+            ],
+        ]);
+
+        //Admin
+        DB::table('admins')->insert([
+            [
+                'full_name'=>'Farhan Fahidur Rahim Admin',
+                'email'=>'admin@gmail.com',
+                'password'=>Hash::make('12345678'),
                 'status'=>'active',
             ],
         ]);
