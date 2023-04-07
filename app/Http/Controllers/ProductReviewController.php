@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductReview;
 use Illuminate\Http\Request;
 
 class ProductReviewController extends Controller
@@ -11,6 +12,24 @@ class ProductReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function productReview(Request $request)
+    {
+        $request->validate([
+            'rate'=>'required|numeric',
+            'reason'=>'required|string',
+            'review'=>'required|string',
+        ]);
+
+        $data=$request->all();
+        $store=ProductReview::create($data);
+        if ($store) {
+            return back()->with('success',"Thanks for your feedback!");
+        }
+        else{
+            return back()->with('error',"Please try again!");
+        }
+    }
+
     public function index()
     {
         //

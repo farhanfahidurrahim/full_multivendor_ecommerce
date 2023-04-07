@@ -15,6 +15,14 @@ class CreateProductReviewsTable extends Migration
     {
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->tinyInteger('rate')->default(0);
+            $table->text('review')->nullable();
+            $table->string('reason')->nullable();
+            $table->enum('status',['pending','accept','reject'])->default('accept');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

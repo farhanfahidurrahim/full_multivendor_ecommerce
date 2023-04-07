@@ -1,17 +1,18 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\Frontend\IndexController;
-use App\Http\Controllers\Frontend\CartController;
-use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShippingController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,10 @@ Route::group(['prefix'=>'user'],function(){
 //Product Category Section
 Route::get('product-category/{slug}',[IndexController::class,'productCategory'])->name('product.category');
 Route::get('product-details/{slug}',[IndexController::class,'productDetails'])->name('product.details');
+
+//Product Review Section
+//Route::resource('/product-review',ProductReviewController::class);
+Route::post('product-review/{slug}',[ProductReviewController::class,'productReview'])->name('product.review');
 
 // Cart
 Route::get('cart',[CartController::class,'cartIndex'])->name('cart.index');
