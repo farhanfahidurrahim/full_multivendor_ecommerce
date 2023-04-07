@@ -58,7 +58,6 @@ Route::get('product-category/{slug}',[IndexController::class,'productCategory'])
 Route::get('product-details/{slug}',[IndexController::class,'productDetails'])->name('product.details');
 
 //Product Review Section
-//Route::resource('/product-review',ProductReviewController::class);
 Route::post('product-review/{slug}',[ProductReviewController::class,'productReview'])->name('product.review');
 
 // Cart

@@ -4,38 +4,10 @@
             <img src="{{ asset('backend/assets/images/user.png') }}" class="rounded-circle user-photo" alt="User Profile Picture">
             <div class="dropdown">
                 <span>Welcome,</span>
-                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>FFR</strong></a>
-                <ul class="dropdown-menu dropdown-menu-right account">
-                    <li><a href="professors-profile.html"><i class="icon-user"></i>My Profile</a></li>
-                    <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
-                    <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
-                    <li class="divider"></li>
-                    <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
-                </ul>
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{ auth('admin')->user()->full_name }}</strong></a>
             </div>
             <hr>
-            <ul class="row list-unstyled">
-                <li class="col-4">
-                    <span>Exp</span>
-                    <h6>14</h6>
-                </li>
-                <li class="col-4">
-                    <span>Awards</span>
-                    <h6>13</h6>
-                </li>
-                <li class="col-4">
-                    <span>Clients</span>
-                    <h6>213</h6>
-                </li>
-            </ul>
         </div>
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#admin">Admin</a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#graduation"><i class="fa fa-graduation-cap"></i></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sub_menu"><i class="icon-grid"></i></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i class="icon-settings"></i></a></li>
-        </ul>
         <!-- Tab panes -->
         <div class="tab-content p-l-0 p-r-0">
             <div class="tab-pane active" id="admin">
