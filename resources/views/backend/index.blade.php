@@ -82,21 +82,43 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Payment Method</th>
-                                            <th>Order Status</th>
+                                            <th>Payment Status</th>
                                             <th>Total</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($orders as $row)
                                         <tr>
-                                            <td><img src="http://via.placeholder.com/60x50" alt="Product img"></td>
-                                            <td>Hossein</td>
-                                            <td>IPONE-7</td>
-                                            <td>Porterfield 508 Virginia Street Chicago, IL 60653</td>
-                                            <td>3</td>
-                                            <td><span class="badge badge-success">DONE</span></td>
-                                            <td>$ 356</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $row->first_name }} {{ $row->last_name }}</td>
+                                            <td>{{ $row->email }}</td>
+                                            <td>{{ $row->payment_method=="cod" ? "Cash On Delivery" : $order->payment_method }}</td>
+                                            <td>{{ ucfirst($row->payment_status) }}</td>
+                                            <td>{{ number_format($row->total_amount,2) }}</td>
+                                            <td><span class="badge
+                                                @if($row->condition=='pending')
+                                                    badge-info
+                                                @elseif($row->condition=='processing')
+                                                    badge-primary
+                                                @elseif($row->condition=='delivered')
+                                                    badge-success
+                                                @else
+                                                    badge-danger
+                                                @endif
+                                                    ">{{ $row->condition }}</span></td>
+                                            <td class="">
+                                                <a href="#" data-toggle="tooltip" title="Edit" class="btn btn-sm btn-outline-warning"><i class="fas fa-eye"></i></a>
+
+                                                <form class="px-3" onclick="return confirm('Are you sure you want to delete?')" method="POST" action="#">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
