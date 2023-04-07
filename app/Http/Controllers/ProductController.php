@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Brand;
 use App\Models\Product;
-use DB;
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
+use File;
 
 class ProductController extends Controller
 {
@@ -39,7 +45,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $brands=Brand::where('status','active')->get();
+        $categories=Category::where('status','active')->get();
+        $vendors=User::where('role','seller')->get();
+        return view('backend.product.create',compact('brands','categories','vendors'));
     }
 
     /**
@@ -50,7 +59,45 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'=>'required',
+            'summary'=>'required',
+            'description'=>'required',
+            'photo'=>'required',
+            'stock'=>'required',
+            'price'=>'required|numeric',
+            'discount'=>'required|numeric',
+            'size'=>'required',
+            'conditions'=>'required',
+            'status'=>'required',
+            'brand_id'=>'required',
+            'cat_id'=>'required',
+            'vendor_id'=>'required',
+        ]);
+
+        $slug=Str::slug($request->title, '-');
+        if ($request->hasFile('photo')) {
+
+            $file=$request->file('photo');
+            $filename=$slug.'.'.$file->getClientOriginalExtension();
+            //$file->move(public_path('file/img/product/'),$filename);
+            Image::make($file)->resize(300,450)->save('file/img/product/'.$filename);
+            $path="file/img/product/$filename";
+            //dd($path);
+
+        }
+
+        $data=$request->all();
+        $data['photo']=$path;
+        $data['slug']=$slug;
+        $data['offer_price']=$request->price-($request->price*$request->discount)/100;
+        $store=Product::create($data);
+        if ($store) {
+            return redirect()->route('product.index')->with('success',"Product Created Successfully!");
+        }
+        else{
+            return redirect()->back()->with('error',"Something wrong!");
+        }
     }
 
     /**
@@ -72,7 +119,13 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data=Product::findorfail($id);
+        if ($data) {
+            return view('backend.product.edit',compact('data'));
+        }
+        else{
+            return back()->with('error',"Product Not Found");
+        }
     }
 
     /**
@@ -84,7 +137,55 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update_id=Product::findorfail($id);
+        if ($update_id) {
+            $request->validate([
+                'title'=>'required',
+                'summary'=>'required',
+                'description'=>'required',
+                'stock'=>'required',
+                'price'=>'required|numeric',
+                'discount'=>'required|numeric',
+                'size'=>'required',
+                'conditions'=>'required',
+                'status'=>'required',
+                'brand_id'=>'required',
+                'cat_id'=>'required',
+                'vendor_id'=>'required',
+            ]);
+
+            if ($request->photo) {
+                if (File::exists($request->old_photo)) {
+                       unlink($request->old_photo);
+                }
+                $file=$request->photo;
+                $filename=uniqid().'.'.$file->getClientOriginalExtension();
+                Image::make($file)->resize(300,450)->save('file/img/product/'.$filename);
+                $path="file/img/product/$filename";
+
+                $data=$request->all();
+                $data['photo']=$path;
+                $data['offer_price']=$request->price-($request->price*$request->discount)/100;
+                $update=$update_id->fill($data)->save();
+                if ($update) {
+                    return redirect()->route('product.index')->with('success',"Product Updated Successfully!");
+                }
+                else{
+                    return redirect()->back()->with('error',"Something went wrong!");
+                }
+            }else{
+                $data=$request->all();
+                $data['photo']=$request->old_photo;
+                $data['offer_price']=$request->price-($request->price*$request->discount)/100;
+                $update=$update_id->fill($data)->save();
+                if ($update) {
+                    return redirect()->route('product.index')->with('success',"Product Updated Successfully!");
+                }
+                else{
+                    return redirect()->back()->with('error',"Something went wrong!");
+                }
+            }
+        }
     }
 
     /**
@@ -95,6 +196,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data=Product::findorfail($id);
+        @unlink(public_path('/').$data->photo);
+        $data->delete();
+
+        return redirect()->back()->with('success', "Product Deleted!");
     }
 }

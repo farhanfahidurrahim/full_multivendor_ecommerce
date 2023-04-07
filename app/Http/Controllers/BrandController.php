@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use DB;
 
 class BrandController extends Controller
 {
@@ -118,7 +118,7 @@ class BrandController extends Controller
             toastr()->success('Brand Deleted successfully!');
             return redirect()->route('brand.index');
         }
-        
+
         toastr()->error('An error has occurred please try again!');
         return back();
     }

@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('content')
-	
+
 	<div id="main-content">
         <div class="container-fluid">
             <div class="block-header">
@@ -13,7 +13,7 @@
                             	Total Products : {{App\Models\Product::count()}}
                             </h6>
                         </ul>
-                    </div>            
+                    </div>
                     <div class="col-lg-6 col-md-4 col-sm-12 text-right">
                         <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm">
                             <ul class="breadcrumb">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
@@ -39,31 +39,31 @@
                                             <th>Title</th>
                                             <th>Photo</th>
                                             <th>Price</th>
-                                            <th>Offer Price</th>
                                             <th>Discount</th>
+                                            <th>Offer Price</th>
                                             <th>Size</th>
                                             <th>Conditions</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
-                                    </thead>                            
+                                    </thead>
                                     <tbody>
                                     	@foreach($data as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->title }}</td>
-                                            <td><img src="{{ $row->photo }}" style="max-height: 50px; max-width: 75px;" alt="product img"></td>
+                                            <td><img src="{{ asset($row->photo) }}" style="max-height: 100px; max-width: 150px;" alt="product img"></td>
                                             <td>${{ number_format($row->price,2) }}</td>
-                                            <td>${{ number_format($row->offer_price,2) }}</td>
                                             <td>{{ $row->discount }}%</td>
+                                            <td>${{ number_format($row->offer_price,2) }}</td>
                                             <td>{{ $row->size }}</td>
                                             <td>
                                             	@if($row->conditions=='new')
                                             		<span class="badge badge-success">{{ $row->conditions }}</span>
                                                 @elseif($row->conditions=='popular')
-                                                    <span class="badge badge-warning">{{ $row->conditions }}</span> 
+                                                    <span class="badge badge-warning">{{ $row->conditions }}</span>
                                             	@else
-                                            		<span class="badge badge-primary">{{ $row->conditions }}</span>	
+                                            		<span class="badge badge-primary">{{ $row->conditions }}</span>
                                             	@endif
                                             </td>
                                             <td>
@@ -84,7 +84,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
             </div>
 
