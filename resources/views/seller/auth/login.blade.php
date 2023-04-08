@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-<title>:: Admin - Login Page ::</title>
+<title>:: Seller - Login Page ::</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -31,10 +31,10 @@
                     </div>
 					<div class="card">
                         <div class="header">
-                            <p class="lead">Login to your Admin Account</p>
+                            <p class="lead">Login to your Seller Account</p>
                         </div>
                         <div class="body">
-                            <form class="form-auth-small" method="POST" action={{ route('admin.login') }}>
+                            <form class="form-auth-small" method="POST" action={{ route('seller.login') }}>
                             	@csrf
 
                                 <div class="form-group">
@@ -59,17 +59,7 @@
 	                                @enderror
                                 </div>
 
-                                {{-- <div class="form-group clearfix">
-                                    <label class="fancy-checkbox element-left">
-                                        <input type="checkbox">
-                                        <span>Remember me</span>
-                                    </label>
-                                </div> --}}
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
-                                {{-- <div class="bottom">
-                                    <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="page-forgot-password.html">Forgot password?</a></span>
-                                    <span>Don't have an account? <a href="page-register.html">Register</a></span>
-                                </div> --}}
                             </form>
                         </div>
                     </div>

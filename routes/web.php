@@ -77,7 +77,7 @@ Route::get('checkout-confirm',[CheckoutController::class,'checkoutStore'])->name
 Route::get('checkout-complete/{order}',[CheckoutController::class,'checkoutComplete'])->name('checkout.complete');
 
 
-// <================Backend Part============>
+// <================ Backend Part Admin ============>
 
 //Admin Login Auth
 Route::group(['prefix'=>'admin'],function(){
@@ -113,9 +113,19 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
     Route::post('/order-status',[OrderController::class,'orderStatus'])->name('order.status');
 });
 
-//----------------------------------------------------------------------------------------------
+//-----------------------<==============Seller===========>---------------------------------
+
+//Seller Login Auth
+Route::group(['prefix'=>'seller'],function(){
+    Route::get('/login',[\App\Http\Controllers\Auth\Seller\LoginController::class,'ShowLoginForm'])->name('seller.login.form');
+    Route::post('/login',[\App\Http\Controllers\Auth\Seller\LoginController::class,'login'])->name('seller.login');
+});
 
 //Seller Point
 Route::group(['prefix'=>'seller','middleware'=>['seller']],function(){
     Route::get('/',[\App\Http\Controllers\SellerController::class,'dashboard'])->name('seller');
+
+//Product Section
+    Route::resource('/seller-product',App\Http\Controllers\Seller\ProductController::class);
+    Route::post('/product-status',[ProductController::class,'productStatus'])->name('seller.product.status');
 });

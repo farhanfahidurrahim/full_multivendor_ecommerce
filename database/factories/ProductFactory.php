@@ -28,11 +28,11 @@ class ProductFactory extends Factory
             'discount'=>$this->faker->numberBetween(10,100),
             'size'=>$this->faker->randomElement(['S','M','L','XL','XXL']),
             'conditions'=>$this->faker->randomElement(['new','popular','winter']),
+            'added_by'=>'admin',
             'status'=>$this->faker->randomElement(['active','inactive']),
             'brand_id'=>$this->faker->randomElement(Brand::pluck('id')->toArray()),
             'cat_id'=>$this->faker->randomElement(Category::where('is_parent',1)->pluck('id')->toArray()),
             'sub_cat_id'=>$this->faker->randomElement(Category::where('is_parent',0)->pluck('id')->toArray()),
-            'vendor_id'=>$this->faker->randomElement(User::pluck('id')->toArray()),
         ];
     }
 }

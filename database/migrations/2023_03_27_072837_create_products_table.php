@@ -27,14 +27,16 @@ class CreateProductsTable extends Migration
             $table->string('size');
             $table->enum('conditions',['new','popular','winter'])->default('new');
             $table->enum('status',['active','inactive'])->default('active');
+            $table->string('added_by')->nullable();
+
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('cat_id');
             $table->unsignedBigInteger('sub_cat_id')->nullable();
-            $table->unsignedBigInteger('vendor_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('sub_cat_id')->references('id')->on('categories')->onDelete('SET NULL');
-            $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

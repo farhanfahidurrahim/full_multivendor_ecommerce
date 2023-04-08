@@ -55,5 +55,20 @@ class UsersTableSeeder extends Seeder
                 'status'=>'active',
             ],
         ]);
+
+        //Seller
+        DB::table('sellers')->insert([
+            [
+                'full_name'=>'Farhan Fahidur Rahim Seller',
+                'username'=>'Farhan',
+                'email'=>'seller@gmail.com',
+                'password'=>Hash::make('12345678'),
+                'photo'=>'',
+                'address'=>'Kishoreganj',
+                'phone'=>'01675717825',
+                'is_verified'=>0,
+                'status'=>'active',
+            ],
+        ]);
     }
 }
