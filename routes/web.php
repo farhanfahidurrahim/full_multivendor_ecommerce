@@ -7,6 +7,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShippingController;
@@ -111,6 +112,10 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
 //Order Section
     Route::resource('/order',OrderController::class);
     Route::post('/order-status',[OrderController::class,'orderStatus'])->name('order.status');
+//Seller Section
+    Route::resource('/seller',SellerController::class);
+    Route::post('/seller-status',[SellerController::class,'sellerStatus'])->name('seller.status');
+    Route::post('/seller-verified',[SellerController::class,'sellerVerified'])->name('seller.verified');
 });
 
 //-----------------------<==============Seller===========>---------------------------------
@@ -123,7 +128,7 @@ Route::group(['prefix'=>'seller'],function(){
 
 //Seller Point
 Route::group(['prefix'=>'seller','middleware'=>['seller']],function(){
-    Route::get('/',[\App\Http\Controllers\SellerController::class,'dashboard'])->name('seller');
+    Route::get('/',[\App\Http\Controllers\Seller\SellerController::class,'dashboard'])->name('seller');
 
 //Product Section
     Route::resource('/seller-product',App\Http\Controllers\Seller\ProductController::class);

@@ -57,7 +57,12 @@
                             </ul>
                         </li>
                         <li><a href="{{ route('order.index') }}"><i class="icon-support"></i>Order Management</a></li>
-                        <li><a href="app-taskboard.html"><i class="icon-pin"></i>Seller Management</a></li>
+                        <li><a href="javascript:void(0);" class="has-arrow"><i class="icon-pin"></i><span>Seller Managemnet</span> </a>
+                            <ul>
+                                <li><a href="{{ route('seller.index') }}">All Seller</a></li>
+                                {{-- <li><a href="{{ route('shipping.create') }}">Add Shipping</a></li> --}}
+                            </ul>
+                        </li>
                         <li><a href="hostel.html"><i class="icon-target"></i>Hostel</a></li>
                         <li><a href="transport.html"><i class="icon-support"></i>Transport</a></li>
                         <li><span>-- Extra</span></li>
