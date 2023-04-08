@@ -116,16 +116,6 @@
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 col-sm-12">
-                                	<label for="">Vendor</label>
-                                    <select class="form-control show-tick" name="vendor_id">
-                                        <option selected disabled value="">-- Choose --</option>
-                                        @foreach ($vendors as $row)
-                                            <option value="{{ $row->id }}">{{ $row->full_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12">
                                 	<label for="">Size</label>
                                     <select class="form-control show-tick" name="size">
                                         <option selected disabled value="">-- Choose --</option>

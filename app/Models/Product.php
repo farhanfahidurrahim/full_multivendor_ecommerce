@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title','slug','summary','description','photo','stock','price','offer_price','discount','size','conditions','status','brand_id','cat_id','added_by','user_id',
+        'title','slug','summary','description','photo','stock','price','offer_price','discount','size','conditions','status','brand_id','cat_id','added_by','user_id','is_featured',
     ];
 
     public function relatedProductMR()

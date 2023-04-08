@@ -28,6 +28,7 @@ class CreateProductsTable extends Migration
             $table->enum('conditions',['new','popular','winter'])->default('new');
             $table->enum('status',['active','inactive'])->default('active');
             $table->string('added_by')->nullable();
+            $table->boolean('is_featured')->default(0)->nullable();
 
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('cat_id');

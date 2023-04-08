@@ -134,3 +134,8 @@ Route::group(['prefix'=>'seller','middleware'=>['seller']],function(){
     Route::resource('/seller-product',App\Http\Controllers\Seller\ProductController::class);
     Route::post('/product-status',[ProductController::class,'productStatus'])->name('seller.product.status');
 });
+
+////////////////////////////
+Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth:admin']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

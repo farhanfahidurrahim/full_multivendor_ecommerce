@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Banner;
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\User;
+use App\Models\Brand;
+use App\Models\Banner;
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Redirect;
 
 class IndexController extends Controller
 {
@@ -20,8 +21,16 @@ class IndexController extends Controller
     public function index()
     {
         $banner=Banner::where(['status'=>'active','condition'=>'banner'])->orderBy('id','DESC')->limit('3')->get();
+        $banner_promo=Banner::where(['status'=>'active','condition'=>'promo'])->orderBy('id','DESC')->limit('1')->get();
+
         $categories=Category::where(['status'=>'active','is_parent'=>1])->orderBy('id','DESC')->limit('3')->get();
-        return view('frontend.index',compact('banner','categories'));
+        $new_products=Product::where(['status'=>'active','conditions'=>'new'])->orderBy('id','DESC')->limit('10')->get();
+
+        $featured_products=Product::where(['status'=>'active','is_featured'=>1])->orderBy('id','DESC')->limit('6')->get();
+
+        $brands=Brand::where('status','active',)->orderBy('id','DESC')->get();
+
+        return view('frontend.index',compact('banner','categories','new_products','featured_products','banner_promo','brands'));
     }
 
     // Frontend Header : Shop

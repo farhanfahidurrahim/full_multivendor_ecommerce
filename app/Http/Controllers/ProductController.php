@@ -47,8 +47,7 @@ class ProductController extends Controller
     {
         $brands=Brand::where('status','active')->get();
         $categories=Category::where('status','active')->get();
-        $vendors=User::where('role','seller')->get();
-        return view('backend.product.create',compact('brands','categories','vendors'));
+        return view('backend.product.create',compact('brands','categories'));
     }
 
     /**
@@ -72,7 +71,6 @@ class ProductController extends Controller
             'status'=>'required',
             'brand_id'=>'required',
             'cat_id'=>'required',
-            'vendor_id'=>'required',
         ]);
 
         $slug=Str::slug($request->title, '-');
@@ -84,12 +82,13 @@ class ProductController extends Controller
             Image::make($file)->resize(300,450)->save('file/img/product/'.$filename);
             $path="file/img/product/$filename";
             //dd($path);
-
         }
 
         $data=$request->all();
         $data['photo']=$path;
         $data['slug']=$slug;
+        $data['added_by']='admin';
+        $data['user_id']=auth('admin')->user()->id;
         $data['offer_price']=$request->price-($request->price*$request->discount)/100;
         $store=Product::create($data);
         if ($store) {
@@ -151,8 +150,9 @@ class ProductController extends Controller
                 'status'=>'required',
                 'brand_id'=>'required',
                 'cat_id'=>'required',
-                'vendor_id'=>'required',
             ]);
+
+            $slug=Str::slug($request->title, '-');
 
             if ($request->photo) {
                 if (File::exists($request->old_photo)) {
@@ -176,6 +176,9 @@ class ProductController extends Controller
             }else{
                 $data=$request->all();
                 $data['photo']=$request->old_photo;
+                $data['slug']=$slug;
+                $data['added_by']='admin';
+                $data['user_id']=auth('admin')->user()->id;
                 $data['offer_price']=$request->price-($request->price*$request->discount)/100;
                 $update=$update_id->fill($data)->save();
                 if ($update) {

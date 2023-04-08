@@ -29,6 +29,7 @@ class ProductFactory extends Factory
             'size'=>$this->faker->randomElement(['S','M','L','XL','XXL']),
             'conditions'=>$this->faker->randomElement(['new','popular','winter']),
             'added_by'=>'admin',
+            'is_featured'=>$this->faker->numberBetween(0,1),
             'status'=>$this->faker->randomElement(['active','inactive']),
             'brand_id'=>$this->faker->randomElement(Brand::pluck('id')->toArray()),
             'cat_id'=>$this->faker->randomElement(Category::where('is_parent',1)->pluck('id')->toArray()),
