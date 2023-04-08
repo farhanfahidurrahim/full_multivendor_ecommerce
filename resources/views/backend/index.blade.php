@@ -75,8 +75,8 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="thead-dark">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
                                         <tr>
                                             <th style="width:60px;">#</th>
                                             <th>Name</th>
@@ -89,14 +89,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($orders as $row)
+                                        @forelse ($orders as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->first_name }} {{ $row->last_name }}</td>
                                             <td>{{ $row->email }}</td>
                                             <td>{{ $row->payment_method=="cod" ? "Cash On Delivery" : $order->payment_method }}</td>
                                             <td>{{ ucfirst($row->payment_status) }}</td>
-                                            <td>{{ number_format($row->total_amount,2) }}</td>
+                                            <td>{{ $row->total_amount }}</td>
                                             <td><span class="badge
                                                 @if($row->condition=='pending')
                                                     badge-info
@@ -109,7 +109,7 @@
                                                 @endif
                                                     ">{{ $row->condition }}</span></td>
                                             <td class="">
-                                                <a href="#" data-toggle="tooltip" title="Edit" class="btn btn-sm btn-outline-warning"><i class="fas fa-eye"></i></a>
+                                                <a href="{{ route('order.show',$row->id) }}" data-toggle="tooltip" title="Edit" class="btn btn-sm btn-outline-warning"><i class="fas fa-eye"></i></a>
 
                                                 <form class="px-3" onclick="return confirm('Are you sure you want to delete?')" method="POST" action="#">
                                                     @csrf
@@ -118,7 +118,11 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                        <tr>
+                                            <td>No Orders</td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

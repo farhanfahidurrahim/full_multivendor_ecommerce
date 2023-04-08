@@ -4,13 +4,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShippingController;
-use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\CheckoutController;
 
@@ -107,11 +108,14 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
 //Shipping Section
     Route::resource('/shipping',ShippingController::class);
     Route::post('/shipping-status',[ShippingController::class,'shippingStatus'])->name('shipping.status');
+//Order Section
+    Route::resource('/order',OrderController::class);
+    Route::post('/order-status',[OrderController::class,'orderStatus'])->name('order.status');
 });
 
 //----------------------------------------------------------------------------------------------
 
 //Seller Point
-// Route::get(['prefix'=>'seller','middleware'=>['auth','seller']],function(){
-//     Route::get();
-// });
+Route::group(['prefix'=>'seller','middleware'=>['seller']],function(){
+    Route::get('/',[\App\Http\Controllers\SellerController::class,'dashboard'])->name('seller');
+});

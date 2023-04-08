@@ -131,6 +131,14 @@ class CheckoutController extends Controller
         $order['shipping_country']=Session::get('checkout')['shipping_country'];
 
         $store=$order->save();
+
+        foreach (Cart::instance('shopping')->content() as $item) {
+           $product_id[]=$item->id;
+           $product=Product::find($item->id);
+           $quantity=$item->qty;
+           $order->products()->attach($product,['quantity'=>$quantity]);
+        }
+
         if ($store) {
             Mail::to($order['email'])->bcc($order['shipping_email'])->cc('ffr@gmail.com')->send(new OrderMail($order));
             //dd('Mail is send');
@@ -142,7 +150,6 @@ class CheckoutController extends Controller
         else{
             return redirect()->route('checkout1')->with('error',"Please Try Again!");
         }
-        return $order;
     }
 
     public function checkoutComplete($order)
