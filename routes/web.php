@@ -10,11 +10,13 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,6 +118,8 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
     Route::resource('/seller',SellerController::class);
     Route::post('/seller-status',[SellerController::class,'sellerStatus'])->name('seller.status');
     Route::post('/seller-verified',[SellerController::class,'sellerVerified'])->name('seller.verified');
+//Payment Section
+    Route::get('/payment',[SettingsController::class,'payment'])->name('payment');
 });
 
 //-----------------------<==============Seller===========>---------------------------------
@@ -139,3 +143,17 @@ Route::group(['prefix'=>'seller','middleware'=>['seller']],function(){
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth:admin']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END

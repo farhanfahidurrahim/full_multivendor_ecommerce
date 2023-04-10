@@ -63,7 +63,7 @@
                                 {{-- <li><a href="{{ route('shipping.create') }}">Add Shipping</a></li> --}}
                             </ul>
                         </li>
-                        <li><a href="hostel.html"><i class="icon-target"></i>Hostel</a></li>
+                        <li><a href="{{ route('payment') }}"><i class="icon-target"></i>Payment Settings</a></li>
                         <li><a href="transport.html"><i class="icon-support"></i>Transport</a></li>
                         <li><span>-- Extra</span></li>
                         <li>
